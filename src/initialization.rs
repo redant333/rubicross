@@ -1,3 +1,5 @@
+use std::f32::consts::{FRAC_PI_2, PI};
+
 use macroquad::texture::{load_texture, Texture2D};
 
 use crate::{Button, Draw, Sprite};
@@ -20,17 +22,47 @@ pub fn initialize_controls(assets: &Assets) -> Vec<Box<dyn Draw + '_>> {
         // Background
         Box::new(Sprite::new(&assets.img_board, 0., 0.)),
         // Linear buttons
-        Box::new(Button::new(&assets.img_arrow_linear, 186.646, 4.920)),
-        Box::new(Button::new(&assets.img_arrow_linear, 231.884, 4.920)),
-        Box::new(Button::new(&assets.img_arrow_linear, 277.122, 4.920)),
-        Box::new(Button::new(&assets.img_arrow_linear, 186.646, 457.298)),
-        Box::new(Button::new(&assets.img_arrow_linear, 231.884, 457.298)),
-        Box::new(Button::new(&assets.img_arrow_linear, 277.122, 457.298)),
-        Box::new(Button::new(&assets.img_arrow_linear, 4.920, 186.646)),
-        Box::new(Button::new(&assets.img_arrow_linear, 4.920, 231.884)),
-        Box::new(Button::new(&assets.img_arrow_linear, 4.920, 277.122)),
-        Box::new(Button::new(&assets.img_arrow_linear, 457.298, 186.646)),
-        Box::new(Button::new(&assets.img_arrow_linear, 457.298, 231.884)),
-        Box::new(Button::new(&assets.img_arrow_linear, 457.298, 277.122)),
+        Box::new(Button::new(&assets.img_arrow_linear, 186.646, 4.920, 0.)),
+        Box::new(Button::new(&assets.img_arrow_linear, 231.884, 4.920, 0.)),
+        Box::new(Button::new(&assets.img_arrow_linear, 277.122, 4.920, 0.)),
+        Box::new(Button::new(&assets.img_arrow_linear, 186.646, 457.298, PI)),
+        Box::new(Button::new(&assets.img_arrow_linear, 231.884, 457.298, PI)),
+        Box::new(Button::new(&assets.img_arrow_linear, 277.122, 457.298, PI)),
+        Box::new(Button::new(
+            &assets.img_arrow_linear,
+            4.920,
+            186.646,
+            -FRAC_PI_2,
+        )),
+        Box::new(Button::new(
+            &assets.img_arrow_linear,
+            4.920,
+            231.884,
+            -FRAC_PI_2,
+        )),
+        Box::new(Button::new(
+            &assets.img_arrow_linear,
+            4.920,
+            277.122,
+            -FRAC_PI_2,
+        )),
+        Box::new(Button::new(
+            &assets.img_arrow_linear,
+            457.298,
+            186.646,
+            FRAC_PI_2,
+        )),
+        Box::new(Button::new(
+            &assets.img_arrow_linear,
+            457.298,
+            231.884,
+            FRAC_PI_2,
+        )),
+        Box::new(Button::new(
+            &assets.img_arrow_linear,
+            457.298,
+            277.122,
+            FRAC_PI_2,
+        )),
     ]
 }
