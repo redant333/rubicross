@@ -1,4 +1,3 @@
-
 use macroquad::{
     color::WHITE,
     texture::{draw_texture, Texture2D},

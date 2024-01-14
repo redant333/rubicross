@@ -1,5 +1,5 @@
 use macroquad::prelude::*;
-use rubicross::{Button, Draw, Sprite};
+use rubicross::initialization::{initialize_controls, load_assets};
 
 fn window_conf() -> Conf {
     Conf {
@@ -13,13 +13,8 @@ fn window_conf() -> Conf {
 
 #[macroquad::main(window_conf)]
 async fn main() {
-    let board = load_texture("assets/board.png").await.unwrap();
-    let arrow_linear = load_texture("assets/arrow_linear.png").await.unwrap();
-
-    let background = Sprite::new(&board, 0., 0.);
-    let button = Button::new(&arrow_linear, 50.0, 50.0);
-
-    let drawables: Vec<Box<dyn Draw>> = vec![Box::new(background), Box::new(button)];
+    let assets = load_assets().await;
+    let drawables = initialize_controls(&assets);
 
     loop {
         clear_background(color_u8!(0xc5, 0xba, 0xaf, 0xff));
