@@ -14,6 +14,16 @@ fn window_conf() -> Conf {
     }
 }
 
+macro_rules! broadcast_event {
+    ( $controls:expr, $condition:expr, $event:expr ) => {
+        if $condition {
+            for control in &mut $controls {
+                control.handle_event(&$event);
+            }
+        }
+    };
+}
+
 #[macroquad::main(window_conf)]
 async fn main() {
     let assets = load_assets().await;
@@ -21,33 +31,25 @@ async fn main() {
 
     loop {
         clear_background(color_u8!(0xc5, 0xba, 0xaf, 0xff));
-        let (mouse_x, mouse_y) = mouse_position();
+        let (x, y) = mouse_position();
 
-        if mouse_delta_position() != Vec2::ZERO {
-            for control in &mut controls {
-                control.handle_event(&Event::MouseMoved {
-                    x: mouse_x,
-                    y: mouse_y,
-                });
-            }
-        }
+        broadcast_event!(
+            controls,
+            mouse_delta_position() != Vec2::ZERO,
+            Event::MouseMoved { x, y }
+        );
 
-        if is_mouse_button_pressed(MouseButton::Left) {
-            let event = Event::MousePressed {
-                x: mouse_x,
-                y: mouse_y,
-            };
+        broadcast_event!(
+            controls,
+            is_mouse_button_pressed(MouseButton::Left),
+            Event::MousePressed { x, y }
+        );
 
-            for control in &mut controls {
-                control.handle_event(&event);
-            }
-        }
-
-        if is_mouse_button_released(MouseButton::Left) {
-            for control in &mut controls {
-                control.handle_event(&Event::MouseReleased);
-            }
-        }
+        broadcast_event!(
+            controls,
+            is_mouse_button_released(MouseButton::Left),
+            Event::MouseReleased
+        );
 
         for drawable in &controls {
             drawable.draw();
