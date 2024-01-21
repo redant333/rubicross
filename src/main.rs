@@ -1,7 +1,7 @@
 use macroquad::prelude::*;
 use rubicross::{
     initialization::{initialize_controls, load_assets},
-    Event,
+    Control, Event,
 };
 
 fn window_conf() -> Conf {
@@ -14,14 +14,27 @@ fn window_conf() -> Conf {
     }
 }
 
-macro_rules! broadcast_event {
-    ( $controls:expr, $condition:expr, $event:expr ) => {
-        if $condition {
-            for control in &mut $controls {
-                control.handle_event(&$event);
-            }
+fn broadcast_input_events(controls: &mut [Box<dyn Control + '_>]) {
+    let (x, y) = mouse_position();
+    let mut events = vec![];
+
+    if mouse_delta_position() != Vec2::ZERO {
+        events.push(Event::MouseMoved { x, y });
+    }
+
+    if is_mouse_button_pressed(MouseButton::Left) {
+        events.push(Event::MousePressed { x, y });
+    }
+
+    if is_mouse_button_released(MouseButton::Left) {
+        events.push(Event::MouseReleased);
+    }
+
+    for control in controls.iter_mut() {
+        for event in &events {
+            control.handle_event(event);
         }
-    };
+    }
 }
 
 #[macroquad::main(window_conf)]
@@ -30,27 +43,9 @@ async fn main() {
     let mut controls = initialize_controls(&assets);
 
     loop {
+        broadcast_input_events(&mut controls);
+
         clear_background(color_u8!(0xc5, 0xba, 0xaf, 0xff));
-        let (x, y) = mouse_position();
-
-        broadcast_event!(
-            controls,
-            mouse_delta_position() != Vec2::ZERO,
-            Event::MouseMoved { x, y }
-        );
-
-        broadcast_event!(
-            controls,
-            is_mouse_button_pressed(MouseButton::Left),
-            Event::MousePressed { x, y }
-        );
-
-        broadcast_event!(
-            controls,
-            is_mouse_button_released(MouseButton::Left),
-            Event::MouseReleased
-        );
-
         for drawable in &controls {
             drawable.draw();
         }
