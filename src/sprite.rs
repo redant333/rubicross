@@ -3,7 +3,7 @@ use macroquad::{
     texture::{draw_texture, Texture2D},
 };
 
-use crate::Draw;
+use crate::Control;
 
 pub struct Sprite<'a> {
     texture: &'a Texture2D,
@@ -17,7 +17,7 @@ impl<'a> Sprite<'a> {
     }
 }
 
-impl<'a> Draw for Sprite<'a> {
+impl<'a> Control for Sprite<'a> {
     fn draw(&self) {
         draw_texture(self.texture, self.x, self.y, WHITE);
     }
