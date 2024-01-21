@@ -14,12 +14,15 @@ pub struct Button<'a> {
     hover_texture: &'a Texture2D,
     pressed_texture: &'a Texture2D,
 
+    id: ControlId,
+
     hovered: bool,
     pressed: bool,
 }
 
 impl<'a> Button<'a> {
     pub fn new(
+        id: ControlId,
         idle_texture: &'a Texture2D,
         hover_texture: &'a Texture2D,
         pressed_texture: &'a Texture2D,
@@ -34,6 +37,7 @@ impl<'a> Button<'a> {
             idle_texture,
             hover_texture,
             pressed_texture,
+            id,
             pressed: false,
             hovered: false,
         }
@@ -81,7 +85,7 @@ impl<'a> Control for Button<'a> {
             }
             MousePressed { .. } if self.hovered => {
                 if !self.pressed {
-                    new_events.push(ControlEvent::Pressed(ControlId::LinearArrow));
+                    new_events.push(ControlEvent::Pressed(self.id.clone()));
                 }
                 self.pressed = true;
             }

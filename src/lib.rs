@@ -13,10 +13,14 @@ pub enum InputEvent {
     MouseReleased,
 }
 
+#[derive(Debug)]
+#[derive(Clone)]
 pub enum ControlId {
     LinearArrow,
+    RotationalArrow,
 }
 
+#[derive(Debug)]
 pub enum ControlEvent {
     Pressed(ControlId),
 }

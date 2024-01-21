@@ -41,8 +41,8 @@ fn broadcast_input_events(
 }
 
 fn handle_events(new_events: &[ControlEvent]) {
-    for _event in new_events.iter() {
-        println!("Detected!")
+    for event in new_events.iter() {
+        println!("{:?}", event);
     }
 }
 
