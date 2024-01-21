@@ -26,9 +26,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="true"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="2002.5264"
-     inkscape:cy="477.29708"
+     inkscape:zoom="0.25"
+     inkscape:cx="1308"
+     inkscape:cy="530"
      inkscape:window-width="1920"
      inkscape:window-height="1050"
      inkscape:window-x="0"
@@ -40,7 +40,13 @@
      inkscape:snap-bbox="true"
      inkscape:snap-bbox-midpoints="false"
      inkscape:bbox-paths="true"
-     inkscape:snap-global="false">
+     inkscape:snap-global="false"
+     inkscape:snap-nodes="false"
+     inkscape:snap-others="true"
+     inkscape:snap-object-midpoints="false"
+     inkscape:snap-center="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-grids="true">
     <inkscape:grid
        type="xygrid"
        id="grid25778"
@@ -48,6 +54,27 @@
        spacingy="1"
        units="mm"
        empspacing="12" />
+    <sodipodi:guide
+       position="180,320"
+       orientation="0.70710678,0.70710678"
+       id="guide8935"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="250,250"
+       orientation="0,1"
+       id="guide8937"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="250,250"
+       orientation="-1,0"
+       id="guide8939"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
   </sodipodi:namedview>
   <defs
      id="defs2">
@@ -173,6 +200,23 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <g
+       id="g10348"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational_hover.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4">
+      <path
+         style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+         d="m 611.17559,119.64827 9.28829,-9.28828"
+         id="path9986"
+         inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+         inkscape:export-xdpi="25.4"
+         inkscape:export-ydpi="25.4" />
+      <path
+         style="fill:#ffe66d;fill-opacity:1;stroke:#ffe66d;stroke-width:3.174;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+         d="m 610.99909,119.79989 5.8885,-5.88852"
+         id="path1126" />
+    </g>
     <rect
        style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3.16299;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
        id="rect13864"
@@ -280,10 +324,6 @@
         </g>
       </g>
     </g>
-    <path
-       style="fill:none;stroke:#676767;stroke-width:4.06398;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
-       d="m 624.44014,63.76982 7.53964,-7.539636"
-       id="path22393" />
     <g
        id="g2310">
       <rect
@@ -912,18 +952,6 @@
            r="5" />
       </g>
     </g>
-    <path
-       style="fill:none;stroke:#676767;stroke-width:4.06398;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
-       d="m 102.97713,102.97712 7.53964,-7.539632"
-       id="path18082" />
-    <path
-       style="fill:none;stroke:#676767;stroke-width:4.06398;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
-       d="m 133.13567,133.13567 7.53964,-7.53965"
-       id="path18532" />
-    <path
-       style="fill:none;stroke:#676767;stroke-width:4.06398;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
-       d="m 163.29421,163.29421 7.53965,-7.53965"
-       id="path18534" />
     <g
        id="path18536"
        transform="matrix(1.0732835,0,0,0.83914082,-14.220835,9.990602)"
@@ -1228,54 +1256,6 @@
       </g>
     </g>
     <g
-       id="g22404"
-       transform="matrix(-3.7698177,0,0,3.7698177,909.71809,-274.00464)">
-      <path
-         style="fill:none;stroke:#676767;stroke-width:1.07803;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
-         d="m 136,100 2,-2"
-         id="path22395" />
-      <path
-         style="fill:none;stroke:#676767;stroke-width:1.07803;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
-         d="m 144,108 2,-2"
-         id="path22397" />
-      <path
-         style="fill:none;stroke:#676767;stroke-width:1.07803;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
-         d="m 152,116 2,-2"
-         id="path22399" />
-    </g>
-    <g
-       id="g22500"
-       transform="matrix(-3.7698177,0,0,-3.7698177,909.71809,774.00466)">
-      <path
-         style="fill:none;stroke:#676767;stroke-width:1.07803;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
-         d="m 136,100 2,-2"
-         id="path22494" />
-      <path
-         style="fill:none;stroke:#676767;stroke-width:1.07803;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
-         d="m 144,108 2,-2"
-         id="path22496" />
-      <path
-         style="fill:none;stroke:#676767;stroke-width:1.07803;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
-         d="m 152,116 2,-2"
-         id="path22498" />
-    </g>
-    <g
-       id="g22508"
-       transform="matrix(3.7698177,0,0,-3.7698177,-409.71807,774.00466)">
-      <path
-         style="fill:none;stroke:#676767;stroke-width:1.07803;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
-         d="m 136,100 2,-2"
-         id="path22502" />
-      <path
-         style="fill:none;stroke:#676767;stroke-width:1.07803;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
-         d="m 144,108 2,-2"
-         id="path22504" />
-      <path
-         style="fill:none;stroke:#676767;stroke-width:1.07803;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
-         d="m 152,116 2,-2"
-         id="path22506" />
-    </g>
-    <g
        id="g1413"
        inkscape:export-filename="/home/whocares/rubicross/assets/arrow_linear_hover.png"
        inkscape:export-xdpi="25.4"
@@ -1386,6 +1366,139 @@
           </g>
         </g>
       </g>
+    </g>
+    <g
+       id="g8947">
+      <path
+         style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+         d="m 165.11861,161.33072 9.28829,-9.28828"
+         id="path22393"
+         inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+         inkscape:export-xdpi="25.4"
+         inkscape:export-ydpi="25.4" />
+      <path
+         style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+         d="m 136.06719,132.27928 9.28829,-9.28828"
+         id="path8801"
+         inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+         inkscape:export-xdpi="25.4"
+         inkscape:export-ydpi="25.4" />
+      <path
+         style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+         d="m 104.19957,100.41168 9.28829,-9.288279"
+         id="path8942"
+         inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+         inkscape:export-xdpi="25.4"
+         inkscape:export-ydpi="25.4" />
+    </g>
+    <path
+       style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+       d="m 165.11861,161.33072 9.28829,-9.28828"
+       id="path9669"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
+    <path
+       style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+       d="m 136.06719,132.27928 9.28829,-9.28828"
+       id="path9671"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
+    <path
+       style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+       d="m 104.19957,100.41168 9.28829,-9.288279"
+       id="path9673"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
+    <path
+       style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+       d="m 334.88159,338.66926 -9.28829,9.28828"
+       id="path9765"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
+    <path
+       style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+       d="m 363.93301,367.7207 -9.28829,9.28828"
+       id="path9767"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
+    <path
+       style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+       d="m 395.80063,399.5883 -9.28829,9.28828"
+       id="path9769"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
+    <path
+       style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+       d="m 395.86865,100.34364 -9.28828,-9.288292"
+       id="path9773"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
+    <path
+       style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+       d="m 364.00102,132.21124 -9.28828,-9.28829"
+       id="path9775"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
+    <path
+       style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+       d="m 334.9496,161.26268 -9.28828,-9.28829"
+       id="path9777"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
+    <path
+       style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+       d="m 104.13575,399.65688 9.28828,9.28829"
+       id="path9970"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
+    <path
+       style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+       d="m 136.00338,367.78928 9.28828,9.28829"
+       id="path9972"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
+    <path
+       style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+       d="m 165.0548,338.73784 9.28828,9.28829"
+       id="path9974"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
+    <path
+       style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+       d="m 612.72989,82.218191 9.28829,-9.28828"
+       id="path10344"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
+    <g
+       id="g10354"
+       transform="translate(-2.0784261,49.434854)"
+       inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational_pressed.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4">
+      <path
+         style="fill:none;stroke:#676767;stroke-width:5.00653;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+         d="m 611.17559,119.64827 9.28829,-9.28828"
+         id="path10350"
+         inkscape:export-filename="/home/whocares/git/rubicross/assets/arrow_rotational.png"
+         inkscape:export-xdpi="25.4"
+         inkscape:export-ydpi="25.4" />
+      <path
+         style="fill:#ffe66d;fill-opacity:1;stroke:#512500;stroke-width:3.174;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker13958)"
+         d="m 610.99909,119.79989 5.8885,-5.88852"
+         id="path10352" />
     </g>
   </g>
 </svg>
