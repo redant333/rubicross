@@ -6,6 +6,10 @@ pub use sprite::Sprite;
 
 pub mod initialization;
 
+mod piece_logic;
+pub use piece_logic::PieceError;
+pub use piece_logic::Position;
+
 #[non_exhaustive]
 pub enum InputEvent {
     MouseMoved { x: f32, y: f32 },
