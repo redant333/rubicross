@@ -4,6 +4,9 @@ pub use button::Button;
 mod sprite;
 pub use sprite::Sprite;
 
+mod piece;
+pub use piece::Piece;
+
 pub mod initialization;
 
 mod piece_logic;
@@ -17,8 +20,7 @@ pub enum InputEvent {
     MouseReleased,
 }
 
-#[derive(Debug)]
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub enum ControlId {
     LinearArrow,
     RotationalArrow,

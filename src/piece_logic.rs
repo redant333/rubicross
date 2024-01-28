@@ -194,11 +194,11 @@ mod tests {
     #[test_case(4, 1, SlideDirection::Left, 4, 7; "western square, left")]
     #[test_case(4, 1, SlideDirection::Right, 4, 4; "western square, right")]
     fn sliding_in_valid_direction_returns_expected_result(
-        row:u8,
-        col:u8,
+        row: u8,
+        col: u8,
         direction: SlideDirection,
-        expected_row:u8,
-        expected_col:u8
+        expected_row: u8,
+        expected_col: u8,
     ) {
         let mut position = Position::new(row, col).unwrap();
 
