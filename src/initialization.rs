@@ -2,7 +2,7 @@ use std::f32::consts::{FRAC_PI_2, PI};
 
 use macroquad::texture::{load_texture, Texture2D};
 
-use crate::{Button, Control, ControlId, Piece, Sprite};
+use crate::{piece::PieceCollection, Button, Control, ControlId, Piece, Sprite};
 
 #[non_exhaustive]
 pub struct Assets {
@@ -49,7 +49,8 @@ fn piece_location(row: u8, col: u8) -> (f32, f32) {
     )
 }
 
-pub fn initialize_controls(assets: &Assets) -> Vec<Box<dyn Control + '_>> {
+#[rustfmt::skip]
+pub fn initialize_buttons(assets: &Assets) -> Vec<Box<dyn Control + '_>> {
     let new_linear_button = |x, y, rotation, id| {
         Button::new(
             id,
@@ -74,8 +75,7 @@ pub fn initialize_controls(assets: &Assets) -> Vec<Box<dyn Control + '_>> {
         )
     };
 
-    #[rustfmt::skip]
-    let mut controls: Vec<Box<dyn Control + '_>> = vec![
+    vec![
         // Background
         Box::new(Sprite::new(&assets.img_board, 0., 0.)),
         // Linear buttons
@@ -104,13 +104,17 @@ pub fn initialize_controls(assets: &Assets) -> Vec<Box<dyn Control + '_>> {
         Box::new(new_rotational_button(146.381, 320.000, FRAC_PI_2)),
         Box::new(new_rotational_button(117.330, 349.052, FRAC_PI_2)),
         Box::new(new_rotational_button(85.462, 380.919, FRAC_PI_2)),
-    ];
+    ]
+}
+
+pub fn initialize_pieces(assets: &Assets) -> PieceCollection {
+    let mut pieces = vec![];
 
     // Yellow pieces
     for row in 3..6 {
         for col in 3..6 {
             let (x, y) = piece_location(row, col);
-            controls.push(Box::new(Piece::new(&assets.img_piece_yellow, x, y)));
+            pieces.push(Piece::new(&assets.img_piece_yellow, x, y));
         }
     }
 
@@ -118,7 +122,7 @@ pub fn initialize_controls(assets: &Assets) -> Vec<Box<dyn Control + '_>> {
     for row in 3..6 {
         for col in 6..9 {
             let (x, y) = piece_location(row, col);
-            controls.push(Box::new(Piece::new(&assets.img_piece_blue, x, y)));
+            pieces.push(Piece::new(&assets.img_piece_blue, x, y));
         }
     }
 
@@ -126,7 +130,7 @@ pub fn initialize_controls(assets: &Assets) -> Vec<Box<dyn Control + '_>> {
     for row in 3..6 {
         for col in 0..3 {
             let (x, y) = piece_location(row, col);
-            controls.push(Box::new(Piece::new(&assets.img_piece_purple, x, y)));
+            pieces.push(Piece::new(&assets.img_piece_purple, x, y));
         }
     }
 
@@ -134,7 +138,7 @@ pub fn initialize_controls(assets: &Assets) -> Vec<Box<dyn Control + '_>> {
     for row in 0..3 {
         for col in 3..6 {
             let (x, y) = piece_location(row, col);
-            controls.push(Box::new(Piece::new(&assets.img_piece_green, x, y)));
+            pieces.push(Piece::new(&assets.img_piece_green, x, y));
         }
     }
 
@@ -142,9 +146,9 @@ pub fn initialize_controls(assets: &Assets) -> Vec<Box<dyn Control + '_>> {
     for row in 6..9 {
         for col in 3..6 {
             let (x, y) = piece_location(row, col);
-            controls.push(Box::new(Piece::new(&assets.img_piece_red, x, y)));
+            pieces.push(Piece::new(&assets.img_piece_red, x, y));
         }
     }
 
-    controls
+    PieceCollection { pieces }
 }

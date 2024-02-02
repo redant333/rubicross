@@ -1,6 +1,6 @@
 use macroquad::prelude::*;
 use rubicross::{
-    initialization::{initialize_controls, load_assets},
+    initialization::{initialize_buttons, initialize_pieces, load_assets},
     Control, ControlEvent, InputEvent,
 };
 
@@ -49,17 +49,20 @@ fn handle_events(new_events: &[ControlEvent]) {
 #[macroquad::main(window_conf)]
 async fn main() {
     let assets = load_assets().await;
-    let mut controls = initialize_controls(&assets);
+    let mut buttons = initialize_buttons(&assets);
+    let pieces = initialize_pieces(&assets);
 
     loop {
         let mut new_events = vec![];
-        broadcast_input_events(&mut controls, &mut new_events);
+        broadcast_input_events(&mut buttons, &mut new_events);
         handle_events(&new_events);
 
         clear_background(color_u8!(0xc5, 0xba, 0xaf, 0xff));
-        for drawable in &controls {
+        for drawable in &buttons {
             drawable.draw();
         }
+
+        pieces.draw();
 
         next_frame().await
     }
