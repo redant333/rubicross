@@ -50,9 +50,9 @@ fn piece_location(row: u8, col: u8) -> (f32, f32) {
 }
 
 pub fn initialize_controls(assets: &Assets) -> Vec<Box<dyn Control + '_>> {
-    let new_linear_button = |x, y, rotation| {
+    let new_linear_button = |x, y, rotation, id| {
         Button::new(
-            ControlId::LinearArrow,
+            id,
             &assets.img_arrow_linear,
             &assets.img_arrow_linear_hover,
             &assets.img_arrow_linear_pressed,
@@ -74,22 +74,23 @@ pub fn initialize_controls(assets: &Assets) -> Vec<Box<dyn Control + '_>> {
         )
     };
 
+    #[rustfmt::skip]
     let mut controls: Vec<Box<dyn Control + '_>> = vec![
         // Background
         Box::new(Sprite::new(&assets.img_board, 0., 0.)),
         // Linear buttons
-        Box::new(new_linear_button(186.646, 4.920, 0.)),
-        Box::new(new_linear_button(231.884, 4.920, 0.)),
-        Box::new(new_linear_button(277.122, 4.920, 0.)),
-        Box::new(new_linear_button(186.646, 457.298, PI)),
-        Box::new(new_linear_button(231.884, 457.298, PI)),
-        Box::new(new_linear_button(277.122, 457.298, PI)),
-        Box::new(new_linear_button(4.920, 186.646, -FRAC_PI_2)),
-        Box::new(new_linear_button(4.920, 231.884, -FRAC_PI_2)),
-        Box::new(new_linear_button(4.920, 277.122, -FRAC_PI_2)),
-        Box::new(new_linear_button(457.298, 186.646, FRAC_PI_2)),
-        Box::new(new_linear_button(457.298, 231.884, FRAC_PI_2)),
-        Box::new(new_linear_button(457.298, 277.122, FRAC_PI_2)),
+        Box::new(new_linear_button(186.646, 4.920, 0., ControlId::VerticalUp(3))),
+        Box::new(new_linear_button(231.884, 4.920, 0., ControlId::VerticalUp(4))),
+        Box::new(new_linear_button(277.122, 4.920, 0., ControlId::VerticalUp(5))),
+        Box::new(new_linear_button(186.646, 457.298, PI, ControlId::VerticalDown(3))),
+        Box::new(new_linear_button(231.884, 457.298, PI, ControlId::VerticalDown(4))),
+        Box::new(new_linear_button(277.122, 457.298, PI, ControlId::VerticalDown(5))),
+        Box::new(new_linear_button(4.920, 186.646, -FRAC_PI_2, ControlId::HorizontalLeft(3))),
+        Box::new(new_linear_button(4.920, 231.884, -FRAC_PI_2, ControlId::HorizontalLeft(4))),
+        Box::new(new_linear_button(4.920, 277.122, -FRAC_PI_2, ControlId::HorizontalLeft(5))),
+        Box::new(new_linear_button(457.298, 186.646, FRAC_PI_2, ControlId::HorizontalRight(3))),
+        Box::new(new_linear_button(457.298, 231.884, FRAC_PI_2, ControlId::HorizontalRight(4))),
+        Box::new(new_linear_button(457.298, 277.122, FRAC_PI_2, ControlId::HorizontalRight(5))),
         // Rotational buttons
         Box::new(new_rotational_button(85.462, 85.462, 0.)),
         Box::new(new_rotational_button(117.330, 117.330, 0.)),

@@ -22,7 +22,10 @@ pub enum InputEvent {
 
 #[derive(Debug, Clone)]
 pub enum ControlId {
-    LinearArrow,
+    HorizontalLeft(u8),
+    HorizontalRight(u8),
+    VerticalUp(u8),
+    VerticalDown(u8),
     RotationalArrow,
 }
 
