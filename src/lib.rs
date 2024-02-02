@@ -1,9 +1,6 @@
 mod button;
 pub use button::Button;
 
-mod sprite;
-pub use sprite::Sprite;
-
 mod piece;
 pub use piece::Piece;
 

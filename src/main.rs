@@ -1,7 +1,7 @@
 use macroquad::prelude::*;
 use rubicross::{
     initialization::{initialize_buttons, initialize_pieces, load_assets},
-    Control, ControlEvent, InputEvent,
+    Button, Control, ControlEvent, InputEvent,
 };
 
 fn window_conf() -> Conf {
@@ -14,10 +14,7 @@ fn window_conf() -> Conf {
     }
 }
 
-fn broadcast_input_events(
-    controls: &mut [Box<dyn Control + '_>],
-    new_events: &mut Vec<ControlEvent>,
-) {
+fn broadcast_input_events(controls: &mut [Button], new_events: &mut Vec<ControlEvent>) {
     let (x, y) = mouse_position();
     let mut events = vec![];
 
@@ -57,11 +54,16 @@ async fn main() {
         broadcast_input_events(&mut buttons, &mut new_events);
         handle_events(&new_events);
 
+        // Draw the background
         clear_background(color_u8!(0xc5, 0xba, 0xaf, 0xff));
+        draw_texture(&assets.img_board, 0., 0., WHITE);
+
+        // Draw the buttons
         for drawable in &buttons {
             drawable.draw();
         }
 
+        // Draw the pieces
         pieces.draw();
 
         next_frame().await
