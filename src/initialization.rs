@@ -115,8 +115,8 @@ pub fn initialize_paths() -> PathMap {
     let mut map = HashMap::new();
 
     let linear_path_between = |row_from, col_from, row_to, col_to| {
-        let (x_from, y_from) = piece_location(row_from as i32, col_from as i32);
-        let (x_to, y_to) = piece_location(row_to as i32, col_to as i32);
+        let (x_from, y_from) = piece_location(row_from, col_from);
+        let (x_to, y_to) = piece_location(row_to, col_to);
 
         SubpathNoId::from_bezier(&Bezier::from_linear_coordinates(
             x_from as f64,
@@ -126,8 +126,10 @@ pub fn initialize_paths() -> PathMap {
         ))
     };
 
+    // Horizontal sliding right
     for row in 3..6 {
-        for col in 0..9 {
+        // Without ghosts
+        for col in 0..6 {
             let col_to = col + 3;
 
             let from = Position::new(row, col).unwrap();
@@ -136,8 +138,39 @@ pub fn initialize_paths() -> PathMap {
             map.insert(
                 (from, to),
                 Path {
-                    main_path: linear_path_between(row, col, row, col_to),
+                    main_path: linear_path_between(
+                        row as i32,
+                        col as i32,
+                        row as i32,
+                        col_to as i32,
+                    ),
                     ghost_path: None,
+                },
+            );
+        }
+
+        // With ghosts
+        for col in 6..9 {
+            let col_to = col + 3;
+
+            let from = Position::new(row, col).unwrap();
+            let to = Position::new(row, col_to % 9).unwrap();
+
+            map.insert(
+                (from, to),
+                Path {
+                    main_path: linear_path_between(
+                        row as i32,
+                        col as i32 - 9,
+                        row as i32,
+                        col_to as i32 % 9,
+                    ),
+                    ghost_path: Some(linear_path_between(
+                        row as i32,
+                        col as i32,
+                        row as i32,
+                        col_to as i32,
+                    )),
                 },
             );
         }
