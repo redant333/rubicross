@@ -29,12 +29,21 @@ pub struct Position {
     col: u8,
 }
 
-pub enum RotationDirection {
+pub enum Manipulation {
+    RotateClockwise,
+    RotateAnticlockwise,
+    SlideLeft,
+    SlideRight,
+    SlideUp,
+    SlideDown,
+}
+
+enum RotationDirection {
     Clockwise,
     Anticlockwise,
 }
 
-pub enum SlideDirection {
+enum SlideDirection {
     Left,
     Right,
     Up,
@@ -52,7 +61,22 @@ impl Position {
         }
     }
 
-    pub fn rotate(&mut self, direction: RotationDirection) -> Result<(), PieceError> {
+    pub fn apply_manipulation(&mut self, manipulation: Manipulation) -> Result<(), PieceError> {
+        use Manipulation::*;
+        use RotationDirection::*;
+        use SlideDirection::*;
+
+        match manipulation {
+            RotateClockwise => self.rotate(Clockwise),
+            RotateAnticlockwise => self.rotate(Anticlockwise),
+            SlideLeft => self.slide(Left),
+            SlideRight => self.slide(Right),
+            SlideUp => self.slide(Up),
+            SlideDown => self.slide(Down),
+        }
+    }
+
+    fn rotate(&mut self, direction: RotationDirection) -> Result<(), PieceError> {
         if self.is_row_in_middle() && self.is_col_in_middle() {
             return Err(PieceError::CantRotate);
         }
@@ -71,7 +95,7 @@ impl Position {
         Ok(())
     }
 
-    pub fn slide(&mut self, direction: SlideDirection) -> Result<(), PieceError> {
+    fn slide(&mut self, direction: SlideDirection) -> Result<(), PieceError> {
         use SlideDirection::*;
 
         match direction {
