@@ -17,7 +17,7 @@ pub enum Manipulation {
 }
 
 impl<'a> PieceCollection<'a> {
-    pub fn apply_manipulation(&mut self, manipulation: Manipulation) {
+    pub fn apply_manipulation(&mut self, manipulation: Manipulation, animation_length: f64) {
         let (filter, piece_manipulation) = match manipulation {
             Manipulation::RotateClockwise(_) => todo!(),
             Manipulation::RotateAnticlockwise(_) => todo!(),
@@ -42,11 +42,19 @@ impl<'a> PieceCollection<'a> {
             let position_after = *piece.position();
 
             if let Some(paths) = self.path_map.get(&(position_before, position_after)) {
+                piece.start_moving_along(paths, animation_length)
+            } else {
                 println!(
-                    "Found path {:?} for {:?}, {:?}",
-                    paths, position_before, position_after
-                )
+                    "Missing path for {:?} -> {:?}",
+                    position_before, position_after
+                );
             }
+        }
+    }
+
+    pub fn update(&mut self) {
+        for piece in &mut self.pieces {
+            piece.update();
         }
     }
 }

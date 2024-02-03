@@ -39,19 +39,20 @@ fn broadcast_input_events(controls: &mut [Button], new_events: &mut Vec<ControlE
 }
 
 fn handle_events(new_events: &[ControlEvent], pieces: &mut PieceCollection) {
+    const ANIMATION_LENGTH: f64 = 0.5;
     for event in new_events.iter() {
         match event {
             ControlEvent::Pressed(ControlId::HorizontalRight(row)) => {
-                pieces.apply_manipulation(Manipulation::SlideRight(*row))
+                pieces.apply_manipulation(Manipulation::SlideRight(*row), ANIMATION_LENGTH)
             }
             ControlEvent::Pressed(ControlId::HorizontalLeft(row)) => {
-                pieces.apply_manipulation(Manipulation::SlideLeft(*row))
+                pieces.apply_manipulation(Manipulation::SlideLeft(*row), ANIMATION_LENGTH)
             }
             ControlEvent::Pressed(ControlId::VerticalUp(col)) => {
-                pieces.apply_manipulation(Manipulation::SlideUp(*col))
+                pieces.apply_manipulation(Manipulation::SlideUp(*col), ANIMATION_LENGTH)
             }
             ControlEvent::Pressed(ControlId::VerticalDown(col)) => {
-                pieces.apply_manipulation(Manipulation::SlideDown(*col))
+                pieces.apply_manipulation(Manipulation::SlideDown(*col), ANIMATION_LENGTH)
             }
             _ => (),
         }
@@ -69,6 +70,8 @@ async fn main() {
         let mut new_events = vec![];
         broadcast_input_events(&mut buttons, &mut new_events);
         handle_events(&new_events, &mut pieces);
+
+        pieces.update();
 
         // Draw the background
         clear_background(color_u8!(0xc5, 0xba, 0xaf, 0xff));
