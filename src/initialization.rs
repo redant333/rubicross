@@ -144,40 +144,65 @@ pub fn initialize_pieces(assets: &Assets) -> PieceCollection {
     // Yellow pieces
     for row in 3..6 {
         for col in 3..6 {
-            let (x, y) = piece_location(row, col);
-            pieces.push(Piece::new(&assets.img_piece_yellow, x, y));
+            let (x, y) = piece_location(row as i32, col as i32);
+            pieces.push(Piece::new(
+                &assets.img_piece_yellow,
+                Position::new(row, col).unwrap(),
+                x,
+                y,
+            ));
         }
     }
 
     // Blue pieces
     for row in 3..6 {
         for col in 6..9 {
-            let (x, y) = piece_location(row, col);
-            pieces.push(Piece::new(&assets.img_piece_blue, x, y));
+            let (x, y) = piece_location(row as i32, col as i32);
+            pieces.push(Piece::new(
+                &assets.img_piece_blue,
+                Position::new(row, col).unwrap(),
+                x,
+                y,
+            ));
         }
     }
 
     // Purple pieces
     for row in 3..6 {
         for col in 0..3 {
-            let (x, y) = piece_location(row, col);
-            pieces.push(Piece::new(&assets.img_piece_purple, x, y));
+            let (x, y) = piece_location(row as i32, col as i32);
+            pieces.push(Piece::new(
+                &assets.img_piece_purple,
+                Position::new(row, col).unwrap(),
+                x,
+                y,
+            ));
         }
     }
 
     // Green pieces
     for row in 0..3 {
         for col in 3..6 {
-            let (x, y) = piece_location(row, col);
-            pieces.push(Piece::new(&assets.img_piece_green, x, y));
+            let (x, y) = piece_location(row as i32, col as i32);
+            pieces.push(Piece::new(
+                &assets.img_piece_green,
+                Position::new(row, col).unwrap(),
+                x,
+                y,
+            ));
         }
     }
 
     // Red pieces
     for row in 6..9 {
         for col in 3..6 {
-            let (x, y) = piece_location(row, col);
-            pieces.push(Piece::new(&assets.img_piece_red, x, y));
+            let (x, y) = piece_location(row as i32, col as i32);
+            pieces.push(Piece::new(
+                &assets.img_piece_red,
+                Position::new(row, col).unwrap(),
+                x,
+                y,
+            ));
         }
     }
 
