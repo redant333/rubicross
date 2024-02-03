@@ -25,6 +25,10 @@ impl<'a> Piece<'a> {
     pub fn position(&self) -> &Position {
         &self.position
     }
+
+    pub fn position_mut(&mut self) -> &mut Position {
+        &mut self.position
+    }
 }
 
 impl<'a> Control for Piece<'a> {

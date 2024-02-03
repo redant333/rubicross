@@ -23,12 +23,13 @@ impl Display for PieceError {
 
 impl Error for PieceError {}
 
-#[derive(PartialEq, Eq, Hash)]
+#[derive(PartialEq, Eq, Hash, Copy, Clone, Debug)]
 pub struct Position {
     row: u8,
     col: u8,
 }
 
+#[derive(Copy, Clone)]
 pub enum Manipulation {
     RotateClockwise,
     RotateAnticlockwise,
@@ -74,6 +75,14 @@ impl Position {
             SlideUp => self.slide(Up),
             SlideDown => self.slide(Down),
         }
+    }
+
+    pub fn row(&self) -> u8 {
+        self.row
+    }
+
+    pub fn col(&self) -> u8 {
+        self.col
     }
 
     fn rotate(&mut self, direction: RotationDirection) -> Result<(), PieceError> {

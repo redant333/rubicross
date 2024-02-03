@@ -1,7 +1,8 @@
 use macroquad::prelude::*;
+use rubicross::Manipulation;
 use rubicross::{
     initialization::{initialize_buttons, initialize_paths, initialize_pieces, load_assets},
-    Button, Control, ControlEvent, InputEvent,
+    Button, Control, ControlEvent, ControlId, InputEvent, PieceCollection,
 };
 
 fn window_conf() -> Conf {
@@ -37,23 +38,37 @@ fn broadcast_input_events(controls: &mut [Button], new_events: &mut Vec<ControlE
     }
 }
 
-fn handle_events(new_events: &[ControlEvent]) {
+fn handle_events(new_events: &[ControlEvent], pieces: &mut PieceCollection) {
     for event in new_events.iter() {
-        println!("{:?}", event);
+        match event {
+            ControlEvent::Pressed(ControlId::HorizontalRight(row)) => {
+                pieces.apply_manipulation(Manipulation::SlideRight(*row))
+            }
+            ControlEvent::Pressed(ControlId::HorizontalLeft(row)) => {
+                pieces.apply_manipulation(Manipulation::SlideLeft(*row))
+            }
+            ControlEvent::Pressed(ControlId::VerticalUp(col)) => {
+                pieces.apply_manipulation(Manipulation::SlideUp(*col))
+            }
+            ControlEvent::Pressed(ControlId::VerticalDown(col)) => {
+                pieces.apply_manipulation(Manipulation::SlideDown(*col))
+            }
+            _ => (),
+        }
     }
 }
 
 #[macroquad::main(window_conf)]
 async fn main() {
     let assets = load_assets().await;
-    let _paths = initialize_paths();
+    let paths = initialize_paths();
     let mut buttons = initialize_buttons(&assets);
-    let pieces = initialize_pieces(&assets);
+    let mut pieces = initialize_pieces(&assets, &paths);
 
     loop {
         let mut new_events = vec![];
         broadcast_input_events(&mut buttons, &mut new_events);
-        handle_events(&new_events);
+        handle_events(&new_events, &mut pieces);
 
         // Draw the background
         clear_background(color_u8!(0xc5, 0xba, 0xaf, 0xff));

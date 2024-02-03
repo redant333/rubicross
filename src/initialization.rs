@@ -109,7 +109,9 @@ pub fn initialize_buttons(assets: &Assets) -> Vec<Button> {
     ]
 }
 
-pub fn initialize_paths() -> HashMap<(Position, Position), Vec<Path>> {
+pub type PathMap = HashMap<(Position, Position), Vec<Path>>;
+
+pub fn initialize_paths() -> PathMap {
     let mut map = HashMap::new();
 
     let linear_path_between = |row_from, row_to, col_from, col_to| {
@@ -138,7 +140,7 @@ pub fn initialize_paths() -> HashMap<(Position, Position), Vec<Path>> {
     map
 }
 
-pub fn initialize_pieces(assets: &Assets) -> PieceCollection {
+pub fn initialize_pieces<'a>(assets: &'a Assets, paths: &'a PathMap) -> PieceCollection<'a> {
     let mut pieces = vec![];
 
     // Yellow pieces
@@ -206,5 +208,8 @@ pub fn initialize_pieces(assets: &Assets) -> PieceCollection {
         }
     }
 
-    PieceCollection { pieces }
+    PieceCollection {
+        pieces,
+        path_map: paths,
+    }
 }

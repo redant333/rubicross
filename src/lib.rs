@@ -4,6 +4,7 @@ use bezier_rs::Subpath;
 pub use button::Button;
 
 mod pieces;
+pub use pieces::collection::Manipulation;
 pub use pieces::collection::PieceCollection;
 pub use pieces::piece::Piece;
 pub use pieces::position::PieceError;
