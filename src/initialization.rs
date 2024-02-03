@@ -11,6 +11,7 @@ use crate::{Button, ControlId, Path, Piece, PieceCollection, Position, SubpathNo
 #[non_exhaustive]
 pub struct Assets {
     pub img_board: Texture2D,
+    pub img_surroundings: Texture2D,
     pub img_arrow_linear: Texture2D,
     pub img_arrow_linear_hover: Texture2D,
     pub img_arrow_linear_pressed: Texture2D,
@@ -28,6 +29,7 @@ pub struct Assets {
 pub async fn load_assets() -> Assets {
     Assets {
         img_board: load_texture("assets/board.png").await.unwrap(),
+        img_surroundings: load_texture("assets/surroundings.png").await.unwrap(),
         img_arrow_linear: load_texture("assets/arrow_linear.png").await.unwrap(),
         img_arrow_linear_hover: load_texture("assets/arrow_linear_hover.png").await.unwrap(),
         img_arrow_linear_pressed: load_texture("assets/arrow_linear_pressed.png").await.unwrap(),

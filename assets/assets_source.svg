@@ -7,7 +7,7 @@
    viewBox="0 0 500 500"
    version="1.1"
    id="svg5"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
    sodipodi:docname="assets_source.svg"
    inkscape:export-filename="/home/whocares/rubicross/assets/board.png"
    inkscape:export-xdpi="25.4"
@@ -26,9 +26,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="true"
-     inkscape:zoom="2.2750698"
-     inkscape:cx="2673.3246"
-     inkscape:cy="-432.29444"
+     inkscape:zoom="0.40217932"
+     inkscape:cx="1321.5498"
+     inkscape:cy="942.36571"
      inkscape:window-width="1920"
      inkscape:window-height="1050"
      inkscape:window-x="0"
@@ -46,14 +46,19 @@
      inkscape:snap-object-midpoints="false"
      inkscape:snap-center="true"
      inkscape:bbox-nodes="true"
-     inkscape:snap-grids="false">
+     inkscape:snap-grids="false"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1">
     <inkscape:grid
        type="xygrid"
        id="grid25778"
        spacingx="1"
        spacingy="1"
        units="mm"
-       empspacing="12" />
+       empspacing="12"
+       originx="0"
+       originy="0"
+       visible="true" />
     <sodipodi:guide
        position="180,320"
        orientation="0.70710678,0.70710678"
@@ -507,6 +512,14 @@
         </g>
       </g>
     </g>
+    <rect
+       style="fill:#c5baaf;stroke-width:1.107"
+       id="rect1"
+       width="500"
+       height="500"
+       x="0"
+       y="0"
+       ry="0" />
     <g
        id="g2310">
       <rect
@@ -878,6 +891,13 @@
        cx="295.23785"
        cy="114.28658"
        r="18.849089" />
+    <path
+       id="rect2"
+       style="fill:#c5baaf;stroke-width:1.107"
+       d="M 0,0 V 499.99997 H 500 V 0 Z m 182.1434,46.430239 h 135.7137 c 75.1852,0 135.7132,60.527991 135.7132,135.713171 v 135.71368 c 0,75.18517 -60.528,135.71316 -135.7132,135.71316 H 182.1434 c -75.1851,0 -135.7131,-60.52799 -135.7131,-135.71316 V 182.14341 c 0,-75.18518 60.528,-135.713171 135.7131,-135.713171 z"
+       inkscape:export-filename="surroundings.png"
+       inkscape:export-xdpi="25.4"
+       inkscape:export-ydpi="25.4" />
     <circle
        style="fill:#ffc145;fill-opacity:1;stroke:none;stroke-width:0.498717;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="circle31125"

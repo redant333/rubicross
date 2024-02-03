@@ -74,16 +74,18 @@ async fn main() {
         pieces.update();
 
         // Draw the background
-        clear_background(color_u8!(0xc5, 0xba, 0xaf, 0xff));
         draw_texture(&assets.img_board, 0., 0., WHITE);
+
+        // Draw the pieces
+        pieces.draw();
+
+        // Draw surroundings and cover pieces outside the board
+        draw_texture(&assets.img_surroundings, 0., 0., WHITE);
 
         // Draw the buttons
         for drawable in &buttons {
             drawable.draw();
         }
-
-        // Draw the pieces
-        pieces.draw();
 
         next_frame().await
     }
