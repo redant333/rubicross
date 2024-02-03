@@ -6,7 +6,7 @@ use std::{
 use bezier_rs::Bezier;
 use macroquad::texture::{load_texture, Texture2D};
 
-use crate::{Button, ControlId, Path, Piece, PieceCollection, Position};
+use crate::{Button, ControlId, Path, Piece, PieceCollection, Position, SubpathNoId};
 
 #[non_exhaustive]
 pub struct Assets {
@@ -109,7 +109,7 @@ pub fn initialize_buttons(assets: &Assets) -> Vec<Button> {
     ]
 }
 
-pub type PathMap = HashMap<(Position, Position), Vec<Path>>;
+pub type PathMap = HashMap<(Position, Position), Path>;
 
 pub fn initialize_paths() -> PathMap {
     let mut map = HashMap::new();
@@ -118,7 +118,7 @@ pub fn initialize_paths() -> PathMap {
         let (x_from, y_from) = piece_location(row_from as i32, col_from as i32);
         let (x_to, y_to) = piece_location(row_to as i32, col_to as i32);
 
-        Path::from_bezier(&Bezier::from_linear_coordinates(
+        SubpathNoId::from_bezier(&Bezier::from_linear_coordinates(
             x_from as f64,
             y_from as f64,
             x_to as f64,
@@ -133,7 +133,13 @@ pub fn initialize_paths() -> PathMap {
             let from = Position::new(row, col).unwrap();
             let to = Position::new(row, col_to).unwrap();
 
-            map.insert((from, to), vec![linear_path_between(row, col, row, col_to)]);
+            map.insert(
+                (from, to),
+                Path {
+                    main_path: linear_path_between(row, col, row, col_to),
+                    ghost_path: None,
+                },
+            );
         }
     }
 

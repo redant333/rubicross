@@ -7,7 +7,7 @@ use macroquad::{
 use crate::{Control, Path, Position};
 
 struct AnimationParams<'a> {
-    paths: &'a Vec<Path>,
+    path: &'a Path,
     movement_start: f64,
     movement_time: f64,
 }
@@ -39,9 +39,9 @@ impl<'a> Piece<'a> {
         &mut self.position
     }
 
-    pub fn start_moving_along(&mut self, paths: &'a Vec<Path>, time: f64) {
+    pub fn start_moving_along(&mut self, path: &'a Path, time: f64) {
         self.animation = Some(AnimationParams {
-            paths,
+            path,
             movement_start: get_time(),
             movement_time: time,
         });
@@ -52,7 +52,7 @@ impl<'a> Piece<'a> {
             let time_elapsed = get_time() - animation.movement_start;
             let path_pos =
                 bezier_rs::SubpathTValue::GlobalEuclidean(time_elapsed / animation.movement_time);
-            let pos = animation.paths[0].evaluate(path_pos);
+            let pos = animation.path.main_path.evaluate(path_pos);
 
             self.x = pos.x as f32;
             self.y = pos.y as f32;

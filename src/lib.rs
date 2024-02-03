@@ -1,11 +1,11 @@
 mod button;
-use bezier_rs::Identifier;
-use bezier_rs::Subpath;
 pub use button::Button;
 
 mod pieces;
 pub use pieces::collection::Manipulation;
 pub use pieces::collection::PieceCollection;
+pub use pieces::path::Path;
+pub use pieces::path::SubpathNoId;
 pub use pieces::piece::Piece;
 pub use pieces::position::PieceError;
 pub use pieces::position::Position;
@@ -37,14 +37,3 @@ pub trait Control {
     fn draw(&self);
     fn handle_event(&mut self, _event: &InputEvent, _generated_events: &mut Vec<ControlEvent>) {}
 }
-
-#[derive(Clone, Copy, PartialEq, Eq, Debug, Hash)]
-pub struct EmptyId;
-
-impl Identifier for EmptyId {
-    fn new() -> Self {
-        Self
-    }
-}
-
-type Path = Subpath<EmptyId>;
