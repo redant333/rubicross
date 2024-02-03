@@ -114,7 +114,7 @@ pub type PathMap = HashMap<(Position, Position), Vec<Path>>;
 pub fn initialize_paths() -> PathMap {
     let mut map = HashMap::new();
 
-    let linear_path_between = |row_from, row_to, col_from, col_to| {
+    let linear_path_between = |row_from, col_from, row_to, col_to| {
         let (x_from, y_from) = piece_location(row_from as i32, col_from as i32);
         let (x_to, y_to) = piece_location(row_to as i32, col_to as i32);
 
