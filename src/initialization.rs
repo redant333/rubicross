@@ -1,8 +1,12 @@
-use std::f32::consts::{FRAC_PI_2, PI};
+use std::{
+    collections::HashMap,
+    f32::consts::{FRAC_PI_2, PI},
+};
 
+use bezier_rs::Bezier;
 use macroquad::texture::{load_texture, Texture2D};
 
-use crate::{piece::PieceCollection, Button, ControlId, Piece};
+use crate::{piece::PieceCollection, Button, ControlId, Path, Piece, Position};
 
 #[non_exhaustive]
 pub struct Assets {
@@ -38,7 +42,7 @@ pub async fn load_assets() -> Assets {
     }
 }
 
-fn piece_location(row: u8, col: u8) -> (f32, f32) {
+fn piece_location(row: i32, col: i32) -> (f32, f32) {
     const TOP_LEFT_X: f32 = 50.200;
     const TOP_LEFT_Y: f32 = 50.200;
     const PIECE_DISTANCE: f32 = 45.237;
@@ -103,6 +107,35 @@ pub fn initialize_buttons(assets: &Assets) -> Vec<Button> {
         new_rotational_button(117.330, 349.052, FRAC_PI_2),
         new_rotational_button(85.462, 380.919, FRAC_PI_2),
     ]
+}
+
+pub fn initialize_paths() -> HashMap<(Position, Position), Vec<Path>> {
+    let mut map = HashMap::new();
+
+    let linear_path_between = |row_from, row_to, col_from, col_to| {
+        let (x_from, y_from) = piece_location(row_from as i32, col_from as i32);
+        let (x_to, y_to) = piece_location(row_to as i32, col_to as i32);
+
+        Path::from_bezier(&Bezier::from_linear_coordinates(
+            x_from as f64,
+            y_from as f64,
+            x_to as f64,
+            y_to as f64,
+        ))
+    };
+
+    for row in 3..6 {
+        for col in 0..9 {
+            let col_to = col + 3;
+
+            let from = Position::new(row, col).unwrap();
+            let to = Position::new(row, col_to).unwrap();
+
+            map.insert((from, to), vec![linear_path_between(row, col, row, col_to)]);
+        }
+    }
+
+    map
 }
 
 pub fn initialize_pieces(assets: &Assets) -> PieceCollection {

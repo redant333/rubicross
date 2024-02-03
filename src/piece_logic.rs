@@ -23,6 +23,7 @@ impl Display for PieceError {
 
 impl Error for PieceError {}
 
+#[derive(PartialEq, Eq, Hash)]
 pub struct Position {
     row: u8,
     col: u8,

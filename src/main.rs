@@ -1,6 +1,6 @@
 use macroquad::prelude::*;
 use rubicross::{
-    initialization::{initialize_buttons, initialize_pieces, load_assets},
+    initialization::{initialize_buttons, initialize_paths, initialize_pieces, load_assets},
     Button, Control, ControlEvent, InputEvent,
 };
 
@@ -46,6 +46,7 @@ fn handle_events(new_events: &[ControlEvent]) {
 #[macroquad::main(window_conf)]
 async fn main() {
     let assets = load_assets().await;
+    let _paths = initialize_paths();
     let mut buttons = initialize_buttons(&assets);
     let pieces = initialize_pieces(&assets);
 
