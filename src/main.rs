@@ -39,7 +39,7 @@ fn broadcast_input_events(controls: &mut [Button], new_events: &mut Vec<ControlE
 }
 
 fn handle_events(new_events: &[ControlEvent], pieces: &mut PieceCollection) {
-    const ANIMATION_LENGTH: f64 = 0.5;
+    const ANIMATION_LENGTH: f64 = 0.35;
     for event in new_events.iter() {
         match event {
             ControlEvent::Pressed(ControlId::HorizontalRight(row)) => {
