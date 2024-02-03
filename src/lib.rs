@@ -3,14 +3,13 @@ use bezier_rs::Identifier;
 use bezier_rs::Subpath;
 pub use button::Button;
 
-mod piece;
-pub use piece::Piece;
+mod pieces;
+pub use pieces::collection::PieceCollection;
+pub use pieces::piece::Piece;
+pub use pieces::position::PieceError;
+pub use pieces::position::Position;
 
 pub mod initialization;
-
-mod piece_logic;
-pub use piece_logic::PieceError;
-pub use piece_logic::Position;
 
 #[non_exhaustive]
 pub enum InputEvent {

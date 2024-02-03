@@ -6,7 +6,7 @@ use std::{
 use bezier_rs::Bezier;
 use macroquad::texture::{load_texture, Texture2D};
 
-use crate::{piece::PieceCollection, Button, ControlId, Path, Piece, Position};
+use crate::{Button, ControlId, Path, Piece, PieceCollection, Position};
 
 #[non_exhaustive]
 pub struct Assets {
