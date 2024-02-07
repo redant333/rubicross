@@ -198,7 +198,7 @@ pub fn initialize_paths() -> PathMap {
             );
         }
 
-        // Right, with ghosts
+        // Left, with ghosts
         for col in 0..3 {
             let col_to = col as i32 - 3;
 
@@ -228,68 +228,20 @@ pub fn initialize_paths() -> PathMap {
 pub fn initialize_pieces<'a>(assets: &'a Assets, paths: &'a PathMap) -> PieceCollection<'a> {
     let mut pieces = vec![];
 
-    // Yellow pieces
-    for row in 3..6 {
-        for col in 3..6 {
-            let (x, y) = piece_location(row as i32, col as i32);
-            pieces.push(Piece::new(
-                &assets.img_piece_yellow,
-                Position::new(row, col).unwrap(),
-                x,
-                y,
-            ));
-        }
-    }
+    let piece_groups = vec![
+        (&assets.img_piece_green, 0, 3),
+        (&assets.img_piece_purple, 3, 0),
+        (&assets.img_piece_yellow, 3, 3),
+        (&assets.img_piece_blue, 3, 6),
+        (&assets.img_piece_red, 6, 3),
+    ];
 
-    // Blue pieces
-    for row in 3..6 {
-        for col in 6..9 {
-            let (x, y) = piece_location(row as i32, col as i32);
-            pieces.push(Piece::new(
-                &assets.img_piece_blue,
-                Position::new(row, col).unwrap(),
-                x,
-                y,
-            ));
-        }
-    }
-
-    // Purple pieces
-    for row in 3..6 {
-        for col in 0..3 {
-            let (x, y) = piece_location(row as i32, col as i32);
-            pieces.push(Piece::new(
-                &assets.img_piece_purple,
-                Position::new(row, col).unwrap(),
-                x,
-                y,
-            ));
-        }
-    }
-
-    // Green pieces
-    for row in 0..3 {
-        for col in 3..6 {
-            let (x, y) = piece_location(row as i32, col as i32);
-            pieces.push(Piece::new(
-                &assets.img_piece_green,
-                Position::new(row, col).unwrap(),
-                x,
-                y,
-            ));
-        }
-    }
-
-    // Red pieces
-    for row in 6..9 {
-        for col in 3..6 {
-            let (x, y) = piece_location(row as i32, col as i32);
-            pieces.push(Piece::new(
-                &assets.img_piece_red,
-                Position::new(row, col).unwrap(),
-                x,
-                y,
-            ));
+    for (texture, row_offset, col_offset) in piece_groups {
+        for row in row_offset..row_offset + 3 {
+            for col in col_offset..col_offset + 3 {
+                let (x, y) = piece_location(row as i32, col as i32);
+                pieces.push(Piece::new(texture, Position::new(row, col).unwrap(), x, y));
+            }
         }
     }
 
