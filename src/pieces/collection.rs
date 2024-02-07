@@ -18,20 +18,25 @@ pub enum Manipulation {
 
 impl<'a> PieceCollection<'a> {
     pub fn apply_manipulation(&mut self, manipulation: Manipulation, animation_length: f64) {
-        let (filter, piece_manipulation) = match manipulation {
-            Manipulation::RotateClockwise(_) => todo!(),
-            Manipulation::RotateAnticlockwise(_) => todo!(),
-            Manipulation::SlideLeft(_) => todo!(),
-            Manipulation::SlideRight(row) => {
-                let filter = move |piece: &&mut Piece<'a>| piece.position().row() == row;
-                let piece_manipulation = position::Manipulation::SlideRight;
-                (filter, piece_manipulation)
-            }
-            Manipulation::SlideUp(_) => todo!(),
-            Manipulation::SlideDown(_) => todo!(),
-        };
-
-        let pieces = self.pieces.iter_mut().filter(filter);
+        let (pieces, piece_manipulation): (Vec<&mut Piece>, position::Manipulation) =
+            match manipulation {
+                Manipulation::RotateClockwise(_) => todo!(),
+                Manipulation::RotateAnticlockwise(_) => todo!(),
+                Manipulation::SlideLeft(row) => {
+                    let filter = move |piece: &&mut Piece<'a>| piece.position().row() == row;
+                    let pieces = self.pieces.iter_mut().filter(filter).collect();
+                    let piece_manipulation = position::Manipulation::SlideLeft;
+                    (pieces, piece_manipulation)
+                }
+                Manipulation::SlideRight(row) => {
+                    let filter = move |piece: &&mut Piece<'a>| piece.position().row() == row;
+                    let pieces = self.pieces.iter_mut().filter(filter).collect();
+                    let piece_manipulation = position::Manipulation::SlideRight;
+                    (pieces, piece_manipulation)
+                }
+                Manipulation::SlideUp(_) => todo!(),
+                Manipulation::SlideDown(_) => todo!(),
+            };
 
         for piece in pieces {
             let position_before = *piece.position();

@@ -128,9 +128,9 @@ pub fn initialize_paths() -> PathMap {
         ))
     };
 
-    // Horizontal sliding right
+    // Horizontal
     for row in 3..6 {
-        // Without ghosts
+        // Right, without ghosts
         for col in 0..6 {
             let col_to = col + 3;
 
@@ -151,7 +151,7 @@ pub fn initialize_paths() -> PathMap {
             );
         }
 
-        // With ghosts
+        // Right, with ghosts
         for col in 6..9 {
             let col_to = col + 3;
 
@@ -172,6 +172,50 @@ pub fn initialize_paths() -> PathMap {
                         col as i32,
                         row as i32,
                         col_to as i32,
+                    )),
+                },
+            );
+        }
+
+        // Left, without ghosts
+        for col in 3..9 {
+            let col_to = col - 3;
+
+            let from = Position::new(row, col).unwrap();
+            let to = Position::new(row, col_to).unwrap();
+
+            map.insert(
+                (from, to),
+                Path {
+                    main_path: linear_path_between(
+                        row as i32,
+                        col as i32,
+                        row as i32,
+                        col_to as i32,
+                    ),
+                    ghost_path: None,
+                },
+            );
+        }
+
+        // Right, with ghosts
+        for col in 0..3 {
+            let col_to = col as i32 - 3;
+
+            let from = Position::new(row, col).unwrap();
+            let to = Position::new(row, (col_to + 9) as u8).unwrap();
+
+            map.insert(
+                (from, to),
+                Path {
+                    main_path: linear_path_between(
+                        row as i32,
+                        col as i32 + 9,
+                        row as i32,
+                        col_to + 9,
+                    ),
+                    ghost_path: Some(linear_path_between(
+                        row as i32, col as i32, row as i32, col_to,
                     )),
                 },
             );
