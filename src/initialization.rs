@@ -222,6 +222,100 @@ pub fn initialize_paths() -> PathMap {
         }
     }
 
+    // Vertical
+    for col in 3..6 {
+        // Down, without ghosts
+        for row in 0..6 {
+            let row_to = row + 3;
+
+            let from = Position::new(row, col).unwrap();
+            let to = Position::new(row_to, col).unwrap();
+
+            map.insert(
+                (from, to),
+                Path {
+                    main_path: linear_path_between(
+                        row as i32,
+                        col as i32,
+                        row_to as i32,
+                        col as i32,
+                    ),
+                    ghost_path: None,
+                },
+            );
+        }
+
+        // Down, with ghosts
+        for row in 6..9 {
+            let row_to = row + 3;
+
+            let from = Position::new(row, col).unwrap();
+            let to = Position::new(row_to % 9, col).unwrap();
+
+            map.insert(
+                (from, to),
+                Path {
+                    main_path: linear_path_between(
+                        row as i32 - 9,
+                        col as i32,
+                        row_to as i32 % 9,
+                        col as i32,
+                    ),
+                    ghost_path: Some(linear_path_between(
+                        row as i32,
+                        col as i32,
+                        row_to as i32,
+                        col as i32,
+                    )),
+                },
+            );
+        }
+
+        // Up, without ghosts
+        for row in 3..9 {
+            let row_to = row - 3;
+
+            let from = Position::new(row, col).unwrap();
+            let to = Position::new(row_to, col).unwrap();
+
+            map.insert(
+                (from, to),
+                Path {
+                    main_path: linear_path_between(
+                        row as i32,
+                        col as i32,
+                        row_to as i32,
+                        col as i32,
+                    ),
+                    ghost_path: None,
+                },
+            );
+        }
+
+        // Up, with ghosts
+        for row in 0..3 {
+            let row_to = row as i32 - 3;
+
+            let from = Position::new(row, col).unwrap();
+            let to = Position::new((row_to + 9) as u8, col).unwrap();
+
+            map.insert(
+                (from, to),
+                Path {
+                    main_path: linear_path_between(
+                        row as i32 + 9,
+                        col as i32,
+                        row_to + 9,
+                        col as i32,
+                    ),
+                    ghost_path: Some(linear_path_between(
+                        row as i32, col as i32, row_to, col as i32,
+                    )),
+                },
+            );
+        }
+    }
+
     map
 }
 

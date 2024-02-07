@@ -34,8 +34,18 @@ impl<'a> PieceCollection<'a> {
                     let piece_manipulation = position::Manipulation::SlideRight;
                     (pieces, piece_manipulation)
                 }
-                Manipulation::SlideUp(_) => todo!(),
-                Manipulation::SlideDown(_) => todo!(),
+                Manipulation::SlideUp(col) => {
+                    let filter = move |piece: &&mut Piece<'a>| piece.position().col() == col;
+                    let pieces = self.pieces.iter_mut().filter(filter).collect();
+                    let piece_manipulation = position::Manipulation::SlideUp;
+                    (pieces, piece_manipulation)
+                }
+                Manipulation::SlideDown(col) => {
+                    let filter = move |piece: &&mut Piece<'a>| piece.position().col() == col;
+                    let pieces = self.pieces.iter_mut().filter(filter).collect();
+                    let piece_manipulation = position::Manipulation::SlideDown;
+                    (pieces, piece_manipulation)
+                }
             };
 
         for piece in pieces {
