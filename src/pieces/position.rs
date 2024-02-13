@@ -101,7 +101,7 @@ impl Position {
         if distance_coordinate < center {
             Some(SQUARE_SIZE - distance_coordinate - 1)
         } else {
-            Some(distance_coordinate - 2 * SQUARE_SIZE - 1)
+            Some(distance_coordinate - 2 * SQUARE_SIZE)
         }
     }
 
@@ -262,13 +262,20 @@ mod tests {
         assert_eq!(position.col, expected_col);
     }
 
-    #[test_case(4, 4, None)]
     #[test_case(3, 2, Some(0))]
-    #[test_case(4, 1, Some(1))]
     #[test_case(5, 0, Some(2))]
     #[test_case(2, 3, Some(0))]
     #[test_case(1, 4, Some(1))]
     #[test_case(0, 5, Some(2))]
+    #[test_case(4, 0, Some(2))]
+    #[test_case(4, 1, Some(1))]
+    #[test_case(4, 2, Some(0))]
+    #[test_case(4, 3, None)]
+    #[test_case(4, 4, None)]
+    #[test_case(4, 5, None)]
+    #[test_case(4, 6, Some(0))]
+    #[test_case(4, 7, Some(1))]
+    #[test_case(4, 8, Some(2))]
     fn ring_returns_the_expected_value(row: u8, col: u8, expected_ring: Option<u8>) {
         let position = Position::new(row, col).unwrap();
 
