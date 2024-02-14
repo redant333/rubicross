@@ -20,8 +20,20 @@ impl<'a> PieceCollection<'a> {
     pub fn apply_manipulation(&mut self, manipulation: Manipulation, animation_length: f64) {
         let (pieces, piece_manipulation): (Vec<&mut Piece>, position::Manipulation) =
             match manipulation {
-                Manipulation::RotateClockwise(_) => todo!(),
-                Manipulation::RotateAnticlockwise(_) => todo!(),
+                Manipulation::RotateClockwise(ring) => {
+                    let filter =
+                        move |piece: &&mut Piece<'a>| piece.position().ring() == Some(ring);
+                    let pieces = self.pieces.iter_mut().filter(filter).collect();
+                    let piece_manipulation = position::Manipulation::RotateClockwise;
+                    (pieces, piece_manipulation)
+                }
+                Manipulation::RotateAnticlockwise(ring) => {
+                    let filter =
+                        move |piece: &&mut Piece<'a>| piece.position().ring() == Some(ring);
+                    let pieces = self.pieces.iter_mut().filter(filter).collect();
+                    let piece_manipulation = position::Manipulation::RotateAnticlockwise;
+                    (pieces, piece_manipulation)
+                }
                 Manipulation::SlideLeft(row) => {
                     let filter = move |piece: &&mut Piece<'a>| piece.position().row() == row;
                     let pieces = self.pieces.iter_mut().filter(filter).collect();

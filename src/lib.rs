@@ -25,7 +25,8 @@ pub enum ControlId {
     HorizontalRight(u8),
     VerticalUp(u8),
     VerticalDown(u8),
-    RotationalArrow,
+    RotateClockwise(u8),
+    RotateAnticlockwise(u8),
 }
 
 #[derive(Debug)]

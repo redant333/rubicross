@@ -69,9 +69,9 @@ pub fn initialize_buttons(assets: &Assets) -> Vec<Button> {
         )
     };
 
-    let new_rotational_button = |x, y, rotation| {
+    let new_rotational_button = |x, y, rotation, id| {
         Button::new(
-            ControlId::RotationalArrow,
+            id,
             &assets.img_arrow_rotational,
             &assets.img_arrow_rotational_hover,
             &assets.img_arrow_rotational_pressed,
@@ -96,18 +96,18 @@ pub fn initialize_buttons(assets: &Assets) -> Vec<Button> {
         new_linear_button(457.298, 231.884, FRAC_PI_2, ControlId::HorizontalRight(4)),
         new_linear_button(457.298, 277.122, FRAC_PI_2, ControlId::HorizontalRight(5)),
         // Rotational buttons
-        new_rotational_button(85.462, 85.462, 0.),
-        new_rotational_button(117.330, 117.330, 0.),
-        new_rotational_button(146.381, 146.381, 0.),
-        new_rotational_button(320.000, 320.000, PI),
-        new_rotational_button(349.052, 349.052, PI),
-        new_rotational_button(380.919, 380.919, PI),
-        new_rotational_button(320.000, 146.381, -FRAC_PI_2),
-        new_rotational_button(349.052, 117.330, -FRAC_PI_2),
-        new_rotational_button(380.919, 85.462, -FRAC_PI_2),
-        new_rotational_button(146.381, 320.000, FRAC_PI_2),
-        new_rotational_button(117.330, 349.052, FRAC_PI_2),
-        new_rotational_button(85.462, 380.919, FRAC_PI_2),
+        new_rotational_button(85.462, 85.462, 0., ControlId::RotateClockwise(2)),
+        new_rotational_button(117.330, 117.330, 0.,ControlId::RotateClockwise(1)),
+        new_rotational_button(146.381, 146.381, 0., ControlId::RotateClockwise(0)),
+        new_rotational_button(320.000, 320.000, PI, ControlId::RotateClockwise(0)),
+        new_rotational_button(349.052, 349.052, PI, ControlId::RotateClockwise(1)),
+        new_rotational_button(380.919, 380.919, PI, ControlId::RotateClockwise(2)),
+        new_rotational_button(320.000, 146.381, -FRAC_PI_2, ControlId::RotateAnticlockwise(0)),
+        new_rotational_button(349.052, 117.330, -FRAC_PI_2, ControlId::RotateAnticlockwise(1)),
+        new_rotational_button(380.919, 85.462, -FRAC_PI_2, ControlId::RotateAnticlockwise(2)),
+        new_rotational_button(146.381, 320.000, FRAC_PI_2, ControlId::RotateAnticlockwise(0)),
+        new_rotational_button(117.330, 349.052, FRAC_PI_2, ControlId::RotateAnticlockwise(1)),
+        new_rotational_button(85.462, 380.919, FRAC_PI_2, ControlId::RotateAnticlockwise(2)),
     ]
 }
 
@@ -314,6 +314,157 @@ pub fn initialize_paths() -> PathMap {
                 },
             );
         }
+    }
+
+    // Rotational
+    #[rustfmt::skip]
+    let rotational_params = [
+        // Northern square, clockwise
+        (/*from*/ 0, 3, /*arc from*/ 0, 5, /*arc through*/ 0, 8, /*arc to*/ 3, 8, /*to*/ 3, 8),
+        (/*from*/ 0, 4, /*arc from*/ 0, 5, /*arc through*/ 0, 8, /*arc to*/ 3, 8, /*to*/ 4, 8),
+        (/*from*/ 0, 5, /*arc from*/ 0, 5, /*arc through*/ 0, 8, /*arc to*/ 3, 8, /*to*/ 5, 8),
+        (/*from*/ 1, 3, /*arc from*/ 1, 5, /*arc through*/ 1, 7, /*arc to*/ 3, 7, /*to*/ 3, 7),
+        (/*from*/ 1, 4, /*arc from*/ 1, 5, /*arc through*/ 1, 7, /*arc to*/ 3, 7, /*to*/ 4, 7),
+        (/*from*/ 1, 5, /*arc from*/ 1, 5, /*arc through*/ 1, 7, /*arc to*/ 3, 7, /*to*/ 5, 7),
+        (/*from*/ 2, 3, /*arc from*/ 2, 5, /*arc through*/ 2, 6, /*arc to*/ 3, 6, /*to*/ 3, 6),
+        (/*from*/ 2, 4, /*arc from*/ 2, 5, /*arc through*/ 2, 6, /*arc to*/ 3, 6, /*to*/ 4, 6),
+        (/*from*/ 2, 5, /*arc from*/ 2, 5, /*arc through*/ 2, 6, /*arc to*/ 3, 6, /*to*/ 5, 6),
+
+        // Northern square, anti-clockwise
+        (/*from*/ 0, 3, /*arc from*/ 0, 3, /*arc through*/ 0, 0, /*arc to*/ 3, 0, /*to*/ 5, 0),
+        (/*from*/ 0, 4, /*arc from*/ 0, 3, /*arc through*/ 0, 0, /*arc to*/ 3, 0, /*to*/ 4, 0),
+        (/*from*/ 0, 5, /*arc from*/ 0, 3, /*arc through*/ 0, 0, /*arc to*/ 3, 0, /*to*/ 3, 0),
+        (/*from*/ 1, 3, /*arc from*/ 1, 3, /*arc through*/ 1, 1, /*arc to*/ 3, 1, /*to*/ 5, 1),
+        (/*from*/ 1, 4, /*arc from*/ 1, 3, /*arc through*/ 1, 1, /*arc to*/ 3, 1, /*to*/ 4, 1),
+        (/*from*/ 1, 5, /*arc from*/ 1, 3, /*arc through*/ 1, 1, /*arc to*/ 3, 1, /*to*/ 3, 1),
+        (/*from*/ 2, 3, /*arc from*/ 2, 3, /*arc through*/ 2, 2, /*arc to*/ 3, 2, /*to*/ 5, 2),
+        (/*from*/ 2, 4, /*arc from*/ 2, 3, /*arc through*/ 2, 2, /*arc to*/ 3, 2, /*to*/ 4, 2),
+        (/*from*/ 2, 5, /*arc from*/ 2, 3, /*arc through*/ 2, 2, /*arc to*/ 3, 2, /*to*/ 3, 2),
+
+        // Southern square, clockwise
+        (/*from*/ 6, 3, /*arc from*/ 6, 3, /*arc through*/ 6, 2, /*arc to*/ 5, 2, /*to*/ 3, 2),
+        (/*from*/ 6, 4, /*arc from*/ 6, 3, /*arc through*/ 6, 2, /*arc to*/ 5, 2, /*to*/ 4, 2),
+        (/*from*/ 6, 5, /*arc from*/ 6, 3, /*arc through*/ 6, 2, /*arc to*/ 5, 2, /*to*/ 5, 2),
+        (/*from*/ 7, 3, /*arc from*/ 7, 3, /*arc through*/ 7, 1, /*arc to*/ 5, 1, /*to*/ 3, 1),
+        (/*from*/ 7, 4, /*arc from*/ 7, 3, /*arc through*/ 7, 1, /*arc to*/ 5, 1, /*to*/ 4, 1),
+        (/*from*/ 7, 5, /*arc from*/ 7, 3, /*arc through*/ 7, 1, /*arc to*/ 5, 1, /*to*/ 5, 1),
+        (/*from*/ 8, 3, /*arc from*/ 8, 3, /*arc through*/ 8, 0, /*arc to*/ 5, 0, /*to*/ 3, 0),
+        (/*from*/ 8, 4, /*arc from*/ 8, 3, /*arc through*/ 8, 0, /*arc to*/ 5, 0, /*to*/ 4, 0),
+        (/*from*/ 8, 5, /*arc from*/ 8, 3, /*arc through*/ 8, 0, /*arc to*/ 5, 0, /*to*/ 5, 0),
+
+        // Southern square, anti-clockwise
+        (/*from*/ 6, 3, /*arc from*/ 6, 5, /*arc through*/ 6, 6, /*arc to*/ 5, 6, /*to*/ 5, 6),
+        (/*from*/ 6, 4, /*arc from*/ 6, 5, /*arc through*/ 6, 6, /*arc to*/ 5, 6, /*to*/ 4, 6),
+        (/*from*/ 6, 5, /*arc from*/ 6, 5, /*arc through*/ 6, 6, /*arc to*/ 5, 6, /*to*/ 3, 6),
+        (/*from*/ 7, 3, /*arc from*/ 7, 5, /*arc through*/ 7, 7, /*arc to*/ 5, 7, /*to*/ 5, 7),
+        (/*from*/ 7, 4, /*arc from*/ 7, 5, /*arc through*/ 7, 7, /*arc to*/ 5, 7, /*to*/ 4, 7),
+        (/*from*/ 7, 5, /*arc from*/ 7, 5, /*arc through*/ 7, 7, /*arc to*/ 5, 7, /*to*/ 3, 7),
+        (/*from*/ 8, 3, /*arc from*/ 8, 5, /*arc through*/ 8, 8, /*arc to*/ 5, 8, /*to*/ 5, 8),
+        (/*from*/ 8, 4, /*arc from*/ 8, 5, /*arc through*/ 8, 8, /*arc to*/ 5, 8, /*to*/ 4, 8),
+        (/*from*/ 8, 5, /*arc from*/ 8, 5, /*arc through*/ 8, 8, /*arc to*/ 5, 8, /*to*/ 3, 8),
+
+        // Western square, clockwise
+        (/*from*/ 3, 0, /*arc from*/ 3, 0, /*arc through*/ 0, 0, /*arc to*/ 0, 3, /*to*/ 0, 5),
+        (/*from*/ 4, 0, /*arc from*/ 3, 0, /*arc through*/ 0, 0, /*arc to*/ 0, 3, /*to*/ 0, 4),
+        (/*from*/ 5, 0, /*arc from*/ 3, 0, /*arc through*/ 0, 0, /*arc to*/ 0, 3, /*to*/ 0, 3),
+        (/*from*/ 3, 1, /*arc from*/ 3, 1, /*arc through*/ 1, 1, /*arc to*/ 1, 3, /*to*/ 1, 5),
+        (/*from*/ 4, 1, /*arc from*/ 3, 1, /*arc through*/ 1, 1, /*arc to*/ 1, 3, /*to*/ 1, 4),
+        (/*from*/ 5, 1, /*arc from*/ 3, 1, /*arc through*/ 1, 1, /*arc to*/ 1, 3, /*to*/ 1, 3),
+        (/*from*/ 3, 2, /*arc from*/ 3, 2, /*arc through*/ 2, 2, /*arc to*/ 2, 3, /*to*/ 2, 5),
+        (/*from*/ 4, 2, /*arc from*/ 3, 2, /*arc through*/ 2, 2, /*arc to*/ 2, 3, /*to*/ 2, 4),
+        (/*from*/ 5, 2, /*arc from*/ 3, 2, /*arc through*/ 2, 2, /*arc to*/ 2, 3, /*to*/ 2, 3),
+
+        // Western square, anti-clockwise
+        (/*from*/ 3, 0, /*arc from*/ 5, 0, /*arc through*/ 8, 0, /*arc to*/ 8, 3, /*to*/ 8, 3),
+        (/*from*/ 4, 0, /*arc from*/ 5, 0, /*arc through*/ 8, 0, /*arc to*/ 8, 3, /*to*/ 8, 4),
+        (/*from*/ 5, 0, /*arc from*/ 5, 0, /*arc through*/ 8, 0, /*arc to*/ 8, 3, /*to*/ 8, 5),
+        (/*from*/ 3, 1, /*arc from*/ 5, 1, /*arc through*/ 7, 1, /*arc to*/ 7, 3, /*to*/ 7, 3),
+        (/*from*/ 4, 1, /*arc from*/ 5, 1, /*arc through*/ 7, 1, /*arc to*/ 7, 3, /*to*/ 7, 4),
+        (/*from*/ 5, 1, /*arc from*/ 5, 1, /*arc through*/ 7, 1, /*arc to*/ 7, 3, /*to*/ 7, 5),
+        (/*from*/ 3, 2, /*arc from*/ 5, 2, /*arc through*/ 6, 2, /*arc to*/ 6, 3, /*to*/ 6, 3),
+        (/*from*/ 4, 2, /*arc from*/ 5, 2, /*arc through*/ 6, 2, /*arc to*/ 6, 3, /*to*/ 6, 4),
+        (/*from*/ 5, 2, /*arc from*/ 5, 2, /*arc through*/ 6, 2, /*arc to*/ 6, 3, /*to*/ 6, 5),
+
+        // Eastern square, clockwise
+        (/*from*/ 3, 6, /*arc from*/ 6, 6, /*arc through*/ 6, 6, /*arc to*/ 6, 5, /*to*/ 6, 5),
+        (/*from*/ 4, 6, /*arc from*/ 6, 6, /*arc through*/ 6, 6, /*arc to*/ 6, 5, /*to*/ 6, 4),
+        (/*from*/ 5, 6, /*arc from*/ 6, 6, /*arc through*/ 6, 6, /*arc to*/ 6, 5, /*to*/ 6, 3),
+        (/*from*/ 3, 7, /*arc from*/ 6, 7, /*arc through*/ 7, 7, /*arc to*/ 7, 5, /*to*/ 7, 5),
+        (/*from*/ 4, 7, /*arc from*/ 6, 7, /*arc through*/ 7, 7, /*arc to*/ 7, 5, /*to*/ 7, 4),
+        (/*from*/ 5, 7, /*arc from*/ 6, 7, /*arc through*/ 7, 7, /*arc to*/ 7, 5, /*to*/ 7, 3),
+        (/*from*/ 3, 8, /*arc from*/ 6, 8, /*arc through*/ 8, 8, /*arc to*/ 8, 5, /*to*/ 8, 5),
+        (/*from*/ 4, 8, /*arc from*/ 6, 8, /*arc through*/ 8, 8, /*arc to*/ 8, 5, /*to*/ 8, 4),
+        (/*from*/ 5, 8, /*arc from*/ 6, 8, /*arc through*/ 8, 8, /*arc to*/ 8, 5, /*to*/ 8, 3),
+
+        // Eastern square, anti-clockwise
+        (/*from*/ 3, 6, /*arc from*/ 3, 6, /*arc through*/ 2, 6, /*arc to*/ 2, 5, /*to*/ 2, 3),
+        (/*from*/ 4, 6, /*arc from*/ 3, 6, /*arc through*/ 2, 6, /*arc to*/ 2, 5, /*to*/ 2, 4),
+        (/*from*/ 5, 6, /*arc from*/ 3, 6, /*arc through*/ 2, 6, /*arc to*/ 2, 5, /*to*/ 2, 5),
+        (/*from*/ 3, 7, /*arc from*/ 3, 7, /*arc through*/ 1, 7, /*arc to*/ 1, 5, /*to*/ 1, 3),
+        (/*from*/ 4, 7, /*arc from*/ 3, 7, /*arc through*/ 1, 7, /*arc to*/ 1, 5, /*to*/ 1, 4),
+        (/*from*/ 5, 7, /*arc from*/ 3, 7, /*arc through*/ 1, 7, /*arc to*/ 1, 5, /*to*/ 1, 5),
+        (/*from*/ 3, 8, /*arc from*/ 3, 8, /*arc through*/ 0, 8, /*arc to*/ 0, 5, /*to*/ 0, 3),
+        (/*from*/ 4, 8, /*arc from*/ 3, 8, /*arc through*/ 0, 8, /*arc to*/ 0, 5, /*to*/ 0, 4),
+        (/*from*/ 5, 8, /*arc from*/ 3, 8, /*arc through*/ 0, 8, /*arc to*/ 0, 5, /*to*/ 0, 5),
+    ];
+
+    for (
+        row_from,
+        col_from,
+        row_arc_from,
+        col_arc_from,
+        row_arc_through,
+        col_arc_through,
+        row_arc_to,
+        col_arc_to,
+        row_to,
+        col_to,
+    ) in rotational_params
+    {
+        let from = Position::new(row_from, col_from).unwrap();
+        let to = Position::new(row_to, col_to).unwrap();
+
+        // TODO Make sure that arc start and stop get a half piece offsest, so
+        // that they fit the paths perfectly.
+        let (x_from, y_from) = piece_location(row_from as i32, col_from as i32);
+        let (x_arc_from, y_arc_from) = piece_location(row_arc_from, col_arc_from);
+        let (x_arc_through, y_arc_through) = piece_location(row_arc_through, col_arc_through);
+        let (x_arc_to, y_arc_to) = piece_location(row_arc_to, col_arc_to);
+        let (x_to, y_to) = piece_location(row_to as i32, col_to as i32);
+
+        let path = SubpathNoId::from_beziers(
+            &[
+                Bezier::from_linear_coordinates(
+                    x_from as f64,
+                    y_from as f64,
+                    x_arc_from as f64,
+                    y_arc_from as f64,
+                ),
+                Bezier::from_quadratic_coordinates(
+                    x_arc_from as f64,
+                    y_arc_from as f64,
+                    x_arc_through as f64,
+                    y_arc_through as f64,
+                    x_arc_to as f64,
+                    y_arc_to as f64,
+                ),
+                Bezier::from_linear_coordinates(
+                    x_arc_to as f64,
+                    y_arc_to as f64,
+                    x_to as f64,
+                    y_to as f64,
+                ),
+            ],
+            false,
+        );
+
+        map.insert(
+            (from, to),
+            Path {
+                main_path: path,
+                ghost_path: None,
+            },
+        );
     }
 
     map

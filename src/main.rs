@@ -54,7 +54,11 @@ fn handle_events(new_events: &[ControlEvent], pieces: &mut PieceCollection) {
             ControlEvent::Pressed(ControlId::VerticalDown(col)) => {
                 pieces.apply_manipulation(Manipulation::SlideDown(*col), ANIMATION_LENGTH)
             }
-            _ => (),
+            ControlEvent::Pressed(ControlId::RotateClockwise(ring)) => {
+                pieces.apply_manipulation(Manipulation::RotateClockwise(*ring), ANIMATION_LENGTH)
+            }
+            ControlEvent::Pressed(ControlId::RotateAnticlockwise(ring)) => pieces
+                .apply_manipulation(Manipulation::RotateAnticlockwise(*ring), ANIMATION_LENGTH),
         }
     }
 }
