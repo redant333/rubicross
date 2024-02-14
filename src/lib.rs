@@ -19,7 +19,7 @@ pub enum InputEvent {
     MouseReleased,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub enum ControlId {
     HorizontalLeft(u8),
     HorizontalRight(u8),

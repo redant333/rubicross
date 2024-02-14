@@ -80,14 +80,31 @@ async fn main() {
         // Draw the background
         draw_texture(&assets.img_board, 0., 0., WHITE);
 
+        // Draw the rotational buttons
+        let rotational_buttons = buttons.iter_mut().filter(|button| match button.id() {
+            ControlId::RotateClockwise(_) => true,
+            ControlId::RotateAnticlockwise(_) => true,
+            _ => false,
+        });
+
+        for drawable in rotational_buttons {
+            drawable.draw();
+        }
+
         // Draw the pieces
         pieces.draw();
 
         // Draw surroundings and cover pieces outside the board
         draw_texture(&assets.img_surroundings, 0., 0., WHITE);
 
-        // Draw the buttons
-        for drawable in &buttons {
+        // Draw the linear buttons
+        let linear_buttons = buttons.iter_mut().filter(|button| match button.id() {
+            ControlId::RotateClockwise(_) => false,
+            ControlId::RotateAnticlockwise(_) => false,
+            _ => true,
+        });
+
+        for drawable in linear_buttons {
             drawable.draw();
         }
 

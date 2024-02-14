@@ -42,6 +42,10 @@ impl<'a> Button<'a> {
             hovered: false,
         }
     }
+
+    pub fn id(&self) -> ControlId {
+        self.id
+    }
 }
 
 impl<'a> Control for Button<'a> {
