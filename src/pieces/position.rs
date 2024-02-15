@@ -39,6 +39,15 @@ pub enum Manipulation {
     SlideDown,
 }
 
+#[derive(PartialEq, Eq, Debug)]
+pub enum Square {
+    North,
+    South,
+    Center,
+    West,
+    East,
+}
+
 enum RotationDirection {
     Clockwise,
     Anticlockwise,
@@ -83,6 +92,24 @@ impl Position {
 
     pub fn col(&self) -> u8 {
         self.col
+    }
+
+    pub fn square(&self) -> Square {
+        let square_row = self.row / SQUARE_SIZE;
+        let square_col = self.col / SQUARE_SIZE;
+
+        match (square_row, square_col) {
+            (0, 1) => Square::North,
+            (1, 0) => Square::West,
+            (1, 1) => Square::Center,
+            (1, 2) => Square::East,
+            (2, 1) => Square::South,
+            // TODO This should not panic, do something that makes more sense
+            (row, col) => panic!(
+                "Asking for square from a Position with invalid coordiantes {},{}",
+                row, col
+            ),
+        }
     }
 
     pub fn ring(&self) -> Option<u8> {
@@ -280,5 +307,16 @@ mod tests {
         let position = Position::new(row, col).unwrap();
 
         assert_eq!(position.ring(), expected_ring);
+    }
+
+    #[test_case(1, 4, Square::North; "north")]
+    #[test_case(7, 5, Square::South; "south")]
+    #[test_case(4, 2, Square::West; "west")]
+    #[test_case(3, 7, Square::East; "east")]
+    #[test_case(5, 5, Square::Center; "center")]
+    fn square_returns_the_expected_value(row: u8, col: u8, expected_square: Square) {
+        let position = Position::new(row, col).unwrap();
+
+        assert_eq!(position.square(), expected_square);
     }
 }
