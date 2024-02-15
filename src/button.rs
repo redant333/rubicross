@@ -89,7 +89,7 @@ impl<'a> Control for Button<'a> {
             }
             MousePressed { .. } if self.hovered => {
                 if !self.pressed {
-                    new_events.push(ControlEvent::Pressed(self.id.clone()));
+                    new_events.push(ControlEvent::Pressed(self.id));
                 }
                 self.pressed = true;
             }
