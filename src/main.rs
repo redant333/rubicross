@@ -59,6 +59,9 @@ fn handle_events(new_events: &[ControlEvent], pieces: &mut PieceCollection) {
             }
             ControlEvent::Pressed(ControlId::RotateAnticlockwise(ring)) => pieces
                 .apply_manipulation(Manipulation::RotateAnticlockwise(*ring), ANIMATION_LENGTH),
+            ControlEvent::SquareStatusChanged(square, solved) => {
+                println!("Solved changed: {:?} {solved}", square)
+            }
         }
     }
 }
@@ -73,9 +76,9 @@ async fn main() {
     loop {
         let mut new_events = vec![];
         broadcast_input_events(&mut buttons, &mut new_events);
-        handle_events(&new_events, &mut pieces);
+        pieces.update(&mut new_events);
 
-        pieces.update();
+        handle_events(&new_events, &mut pieces);
 
         // Draw the background
         draw_texture(&assets.img_board, 0., 0., WHITE);

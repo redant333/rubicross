@@ -93,6 +93,10 @@ impl<'a> Piece<'a> {
             self.animation = None;
         }
     }
+
+    pub fn has_same_color_as(&self, other: &Piece) -> bool {
+        self.texture == other.texture
+    }
 }
 
 impl<'a> Control for Piece<'a> {

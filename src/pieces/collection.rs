@@ -1,10 +1,16 @@
-use crate::{initialization::PathMap, Control, Piece};
+use crate::{initialization::PathMap, Control, ControlEvent, Piece};
 
 use super::position;
 
 pub struct PieceCollection<'a> {
     pub path_map: &'a PathMap,
     pub pieces: Vec<Piece<'a>>,
+
+    south_solved: bool,
+    north_solved: bool,
+    center_solved: bool,
+    east_solved: bool,
+    west_solved: bool,
 }
 
 pub enum Manipulation {
@@ -17,6 +23,18 @@ pub enum Manipulation {
 }
 
 impl<'a> PieceCollection<'a> {
+    pub fn new(path_map: &'a PathMap, pieces: Vec<Piece<'a>>) -> Self {
+        Self {
+            path_map,
+            pieces,
+            south_solved: false,
+            north_solved: false,
+            center_solved: false,
+            east_solved: false,
+            west_solved: false,
+        }
+    }
+
     pub fn apply_manipulation(&mut self, manipulation: Manipulation, animation_length: f64) {
         let (pieces, piece_manipulation): (Vec<&mut Piece>, position::Manipulation) =
             match manipulation {
@@ -79,9 +97,33 @@ impl<'a> PieceCollection<'a> {
         }
     }
 
-    pub fn update(&mut self) {
+    pub fn update(&mut self, generated_events: &mut Vec<ControlEvent>) {
+        // Update the pieces
         for piece in &mut self.pieces {
             piece.update();
+        }
+
+        // Check if solved status changed
+        use position::Square::*;
+        for (square, store_var) in [
+            (North, &mut self.north_solved),
+            (East, &mut self.east_solved),
+            (Center, &mut self.center_solved),
+            (West, &mut self.west_solved),
+            (South, &mut self.south_solved),
+        ] {
+            let mut square_pieces = self
+                .pieces
+                .iter()
+                .filter(|piece| piece.position().square() == square);
+
+            let first_piece = square_pieces.next().unwrap();
+            let square_solved = square_pieces.all(|piece| first_piece.has_same_color_as(piece));
+
+            if square_solved != *store_var {
+                generated_events.push(ControlEvent::SquareStatusChanged(square, square_solved));
+                *store_var = square_solved;
+            }
         }
     }
 }

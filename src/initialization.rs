@@ -490,8 +490,5 @@ pub fn initialize_pieces<'a>(assets: &'a Assets, paths: &'a PathMap) -> PieceCol
         }
     }
 
-    PieceCollection {
-        pieces,
-        path_map: paths,
-    }
+    PieceCollection::new(paths, pieces)
 }
