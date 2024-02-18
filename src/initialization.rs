@@ -6,7 +6,10 @@ use std::{
 use bezier_rs::Bezier;
 use macroquad::texture::{load_texture, Texture2D};
 
-use crate::{Button, ControlId, Path, Piece, PieceCollection, Position, SubpathNoId};
+use crate::{
+    pieces::position, solved_marker::SolvedMarker, Button, ControlId, Path, Piece, PieceCollection,
+    Position, SubpathNoId,
+};
 
 #[non_exhaustive]
 pub struct Assets {
@@ -23,6 +26,7 @@ pub struct Assets {
     pub img_piece_red: Texture2D,
     pub img_piece_purple: Texture2D,
     pub img_piece_green: Texture2D,
+    pub img_square_solved: Texture2D,
 }
 
 #[rustfmt::skip]
@@ -41,6 +45,7 @@ pub async fn load_assets() -> Assets {
         img_piece_red: load_texture("assets/piece_red.png").await.unwrap(),
         img_piece_purple: load_texture("assets/piece_purple.png").await.unwrap(),
         img_piece_green: load_texture("assets/piece_green.png").await.unwrap(),
+        img_square_solved: load_texture("assets/square_correct.png").await.unwrap(),
     }
 }
 
@@ -491,4 +496,15 @@ pub fn initialize_pieces<'a>(assets: &'a Assets, paths: &'a PathMap) -> PieceCol
     }
 
     PieceCollection::new(paths, pieces)
+}
+
+pub fn initialize_solved_markers(assets: &Assets) -> Vec<SolvedMarker> {
+    use position::Square::*;
+    vec![
+        SolvedMarker::new(178.374, 42.660, North, false, &assets.img_square_solved),
+        SolvedMarker::new(178.374, 178.374, Center, false, &assets.img_square_solved),
+        SolvedMarker::new(178.374, 314.087, South, false, &assets.img_square_solved),
+        SolvedMarker::new(42.660, 178.374, West, false, &assets.img_square_solved),
+        SolvedMarker::new(314.087, 178.374, East, false, &assets.img_square_solved),
+    ]
 }

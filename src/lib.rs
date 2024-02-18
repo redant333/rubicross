@@ -12,6 +12,7 @@ pub use pieces::position::Position;
 use pieces::position::Square;
 
 pub mod initialization;
+pub mod solved_marker;
 
 #[non_exhaustive]
 pub enum InputEvent {
