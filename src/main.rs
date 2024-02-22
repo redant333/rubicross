@@ -1,4 +1,5 @@
 use macroquad::prelude::*;
+use macroquad::rand::ChooseRandom;
 use rubicross::initialization::initialize_solved_markers;
 use rubicross::solved_marker::SolvedMarker;
 use rubicross::Manipulation;
@@ -38,6 +39,36 @@ fn broadcast_input_events(controls: &mut [Button], new_events: &mut Vec<ControlE
             control.handle_event(event, new_events);
         }
     }
+}
+
+fn generate_shuffle_manipulations(count: usize) -> Vec<Manipulation> {
+    use Manipulation::*;
+
+    let all_manipulations = vec![
+        RotateClockwise(0),
+        RotateClockwise(1),
+        RotateClockwise(2),
+        RotateAnticlockwise(0),
+        RotateAnticlockwise(1),
+        RotateAnticlockwise(2),
+        SlideLeft(3),
+        SlideLeft(4),
+        SlideLeft(5),
+        SlideRight(3),
+        SlideRight(4),
+        SlideRight(5),
+        SlideUp(3),
+        SlideUp(4),
+        SlideUp(5),
+        SlideDown(3),
+        SlideDown(4),
+        SlideDown(5),
+    ];
+
+    (0..count)
+        .map(|_| all_manipulations.choose().unwrap())
+        .cloned()
+        .collect()
 }
 
 fn handle_events(
@@ -83,6 +114,13 @@ async fn main() {
     let mut buttons = initialize_buttons(&assets);
     let mut solved_markers = initialize_solved_markers(&assets);
     let mut pieces = initialize_pieces(&assets, &paths);
+
+    rand::srand(macroquad::miniquad::date::now() as u64);
+    let shuffle_manipulations = generate_shuffle_manipulations(10);
+
+    for m in &shuffle_manipulations {
+        println!("{:?}", m);
+    }
 
     loop {
         let mut new_events = vec![];

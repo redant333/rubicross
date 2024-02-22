@@ -13,6 +13,7 @@ pub struct PieceCollection<'a> {
     west_solved: bool,
 }
 
+#[derive(Copy, Clone, Debug)]
 pub enum Manipulation {
     RotateClockwise(u8),
     RotateAnticlockwise(u8),
