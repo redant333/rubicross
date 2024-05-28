@@ -2,11 +2,11 @@ use macroquad::prelude::*;
 use macroquad::rand::ChooseRandom;
 use rubicross::initialization::{initialize_solved_markers, Assets};
 use rubicross::solved_marker::SolvedMarker;
+use rubicross::Manipulation;
 use rubicross::{
     initialization::{initialize_buttons, initialize_paths, initialize_pieces, load_assets},
     Button, Control, ControlEvent, ControlId, InputEvent, PieceCollection,
 };
-use rubicross::Manipulation;
 
 fn window_conf() -> Conf {
     Conf {
@@ -161,10 +161,23 @@ async fn main() {
     let mut pieces = initialize_pieces(&assets, &paths);
 
     rand::srand(macroquad::miniquad::date::now() as u64);
-    let shuffle_manipulations = generate_shuffle_manipulations(10);
+    const SHUFFLE_COUNT: usize = 20;
+    let shuffle_manipulations = generate_shuffle_manipulations(SHUFFLE_COUNT);
+    let mut shuffle_manipulations = shuffle_manipulations.into_iter();
 
-    for m in &shuffle_manipulations {
-        println!("{:?}", m);
+    loop {
+        const ANIMATION_LENGTH: f64 = 0.15;
+        if !pieces.is_animating() {
+            match shuffle_manipulations.next() {
+                Some(manipulation) => pieces.apply_manipulation(manipulation, ANIMATION_LENGTH),
+                None => break,
+            }
+        }
+
+        let mut dummy = vec![];
+        pieces.update(&mut dummy);
+        draw_all(&assets, &solved_markers, &mut buttons, &pieces);
+        next_frame().await
     }
 
     loop {

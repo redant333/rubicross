@@ -127,6 +127,10 @@ impl<'a> PieceCollection<'a> {
             }
         }
     }
+
+    pub fn is_animating(&self) -> bool {
+        self.pieces.iter().any(|piece| piece.is_animating())
+    }
 }
 
 impl<'a> Control for PieceCollection<'a> {
