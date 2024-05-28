@@ -1,12 +1,12 @@
 use macroquad::prelude::*;
 use macroquad::rand::ChooseRandom;
-use rubicross::initialization::initialize_solved_markers;
+use rubicross::initialization::{initialize_solved_markers, Assets};
 use rubicross::solved_marker::SolvedMarker;
-use rubicross::Manipulation;
 use rubicross::{
     initialization::{initialize_buttons, initialize_paths, initialize_pieces, load_assets},
     Button, Control, ControlEvent, ControlId, InputEvent, PieceCollection,
 };
+use rubicross::Manipulation;
 
 fn window_conf() -> Conf {
     Conf {
@@ -107,6 +107,51 @@ fn handle_events(
     }
 }
 
+fn draw_all(
+    assets: &Assets,
+    solved_markers: &[SolvedMarker],
+    buttons: &mut [Button],
+    pieces: &PieceCollection,
+) {
+    // Draw the background
+    draw_texture(&assets.img_board, 0., 0., WHITE);
+
+    // Draw solved markers
+    for marker in solved_markers {
+        marker.draw();
+    }
+
+    // Draw the rotational buttons
+    let rotational_buttons = buttons.iter_mut().filter(|button| {
+        matches!(
+            button.id(),
+            ControlId::RotateClockwise(_) | ControlId::RotateAnticlockwise(_)
+        )
+    });
+
+    for drawable in rotational_buttons {
+        drawable.draw();
+    }
+
+    // Draw the pieces
+    pieces.draw();
+
+    // Draw surroundings and cover pieces outside the board
+    draw_texture(&assets.img_surroundings, 0., 0., WHITE);
+
+    // Draw the linear buttons
+    let linear_buttons = buttons.iter_mut().filter(|button| {
+        !matches!(
+            button.id(),
+            ControlId::RotateClockwise(_) | ControlId::RotateAnticlockwise(_)
+        )
+    });
+
+    for drawable in linear_buttons {
+        drawable.draw();
+    }
+}
+
 #[macroquad::main(window_conf)]
 async fn main() {
     let assets = load_assets().await;
@@ -129,44 +174,7 @@ async fn main() {
 
         handle_events(&new_events, &mut pieces, &mut solved_markers);
 
-        // Draw the background
-        draw_texture(&assets.img_board, 0., 0., WHITE);
-
-        // Draw solved markers
-        for marker in &solved_markers {
-            marker.draw();
-        }
-
-        // Draw the rotational buttons
-        let rotational_buttons = buttons.iter_mut().filter(|button| {
-            matches!(
-                button.id(),
-                ControlId::RotateClockwise(_) | ControlId::RotateAnticlockwise(_)
-            )
-        });
-
-        for drawable in rotational_buttons {
-            drawable.draw();
-        }
-
-        // Draw the pieces
-        pieces.draw();
-
-        // Draw surroundings and cover pieces outside the board
-        draw_texture(&assets.img_surroundings, 0., 0., WHITE);
-
-        // Draw the linear buttons
-        let linear_buttons = buttons.iter_mut().filter(|button| {
-            !matches!(
-                button.id(),
-                ControlId::RotateClockwise(_) | ControlId::RotateAnticlockwise(_)
-            )
-        });
-
-        for drawable in linear_buttons {
-            drawable.draw();
-        }
-
+        draw_all(&assets, &solved_markers, &mut buttons, &pieces);
         next_frame().await
     }
 }
