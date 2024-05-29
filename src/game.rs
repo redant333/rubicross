@@ -1,4 +1,5 @@
 use macroquad::prelude::*;
+use miniquad::date::now;
 use rand::ChooseRandom;
 
 use crate::{
@@ -134,6 +135,15 @@ impl<'a> Game<'a> {
 
             self.draw_all();
             next_frame().await
+        }
+    }
+
+    pub async fn wait(&self, time_sec: f64) {
+        let start = now();
+
+        while now() - start < time_sec {
+            self.draw_all();
+            next_frame().await;
         }
     }
 
