@@ -11,6 +11,7 @@ pub use pieces::position::PieceError;
 pub use pieces::position::Position;
 use pieces::position::Square;
 
+pub mod game;
 pub mod initialization;
 pub mod solved_marker;
 
