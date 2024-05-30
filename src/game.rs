@@ -155,6 +155,26 @@ impl<'a> Game<'a> {
         }
     }
 
+    pub async fn run_victory_loop(&mut self) {
+        use Manipulation::*;
+        loop {
+            if !self.pieces.is_animating() {
+                self.pieces.apply_manipulation(RotateClockwise(0), 1.0);
+                self.pieces.apply_manipulation(RotateClockwise(1), 1.0);
+                self.pieces.apply_manipulation(RotateClockwise(2), 1.0);
+            }
+
+            let mut dummy = vec![];
+            self.pieces.update(&mut dummy);
+            self.draw_all();
+
+            // Additionally draw the victory marker
+            draw_texture(&self.assets.img_victory_marker, 0., 0., WHITE);
+
+            next_frame().await
+        }
+    }
+
     pub async fn wait(&self, time_sec: f64) {
         let start = now();
 

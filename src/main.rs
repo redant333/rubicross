@@ -32,4 +32,5 @@ async fn main() {
     game.run_shuffle(1, 0.15).await;
     game.run_main_loop().await;
     game.wait(1.0).await;
+    game.run_victory_loop().await;
 }

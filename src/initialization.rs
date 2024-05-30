@@ -27,6 +27,7 @@ pub struct Assets {
     pub img_piece_purple: Texture2D,
     pub img_piece_green: Texture2D,
     pub img_square_solved: Texture2D,
+    pub img_victory_marker: Texture2D,
 }
 
 #[rustfmt::skip]
@@ -46,6 +47,7 @@ pub async fn load_assets() -> Assets {
         img_piece_purple: load_texture("assets/piece_purple.png").await.unwrap(),
         img_piece_green: load_texture("assets/piece_green.png").await.unwrap(),
         img_square_solved: load_texture("assets/square_correct.png").await.unwrap(),
+        img_victory_marker: load_texture("assets/victory_marker.png").await.unwrap(),
     }
 }
 

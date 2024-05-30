@@ -9,7 +9,7 @@
    id="svg5"
    inkscape:version="1.3.2 (091e20e, 2023-11-25)"
    sodipodi:docname="assets_source.svg"
-   inkscape:export-filename="/home/whocares/rubicross/assets/board.png"
+   inkscape:export-filename="victory_marker.png"
    inkscape:export-xdpi="25.4"
    inkscape:export-ydpi="25.4"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -26,9 +26,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="true"
-     inkscape:zoom="0.28438372"
-     inkscape:cx="413.17414"
-     inkscape:cy="857.99566"
+     inkscape:zoom="0.56876744"
+     inkscape:cx="1351.1674"
+     inkscape:cy="933.59775"
      inkscape:window-width="1920"
      inkscape:window-height="1050"
      inkscape:window-x="0"
@@ -2917,6 +2917,34 @@
          id="path73"
          style="fill:#ffe66d;fill-opacity:1;stroke-width:10.2728"
          d="m 317.10287,87.898073 a 3.0158541,3.0158541 0 0 1 -3.01573,3.01567 v 1.50784 a 3.0158541,3.0158541 0 0 1 3.01573,3.01567 h 1.50783 a 3.0158541,3.0158541 0 0 1 3.01563,-3.01567 v -1.50784 a 3.0158541,3.0158541 0 0 1 -3.01563,-3.01567 z" />
+    </g>
+    <g
+       id="g4">
+      <rect
+         style="fill:#676767;stroke:#212121;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect3"
+         width="120.23813"
+         height="120.23813"
+         x="189.88097"
+         y="189.88097"
+         rx="15"
+         ry="15" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:50.7619px;line-height:0.85;font-family:sans-serif;fill:#ffe66d;fill-opacity:1;stroke:#212121;stroke-width:1.26905;stroke-opacity:1"
+         x="204.77126"
+         y="242.55746"
+         id="text3"><tspan
+           sodipodi:role="line"
+           id="tspan3"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0.85;font-family:FreeMono;-inkscape-font-specification:'FreeMono Bold';fill:#ffe66d;fill-opacity:1;stroke:#212121;stroke-width:1.26905;stroke-opacity:1"
+           x="204.77126"
+           y="242.55746">YOU</tspan><tspan
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0.85;font-family:FreeMono;-inkscape-font-specification:'FreeMono Bold';fill:#ffe66d;fill-opacity:1;stroke:#212121;stroke-width:1.26905;stroke-opacity:1"
+           x="204.77126"
+           y="287.74747"
+           id="tspan4">WIN</tspan></text>
     </g>
   </g>
 </svg>
