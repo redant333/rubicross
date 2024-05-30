@@ -117,7 +117,7 @@ fn generate_shuffle_manipulations(count: usize) -> Vec<Manipulation> {
 }
 
 impl<'a> Game<'a> {
-    pub async fn perform_shuffle(&mut self, shuffle_count: usize, animation_length: f64) {
+    pub async fn run_shuffle(&mut self, shuffle_count: usize, animation_length: f64) {
         let shuffle_manipulations = generate_shuffle_manipulations(shuffle_count);
         let mut shuffle_manipulations = shuffle_manipulations.into_iter();
 
