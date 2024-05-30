@@ -145,6 +145,12 @@ impl<'a> Game<'a> {
 
     pub async fn run_victory_loop(&mut self) {
         use Manipulation::*;
+
+        // Make sure the buttons don't stay hovered
+        for button in self.buttons.iter_mut() {
+            button.handle_event(&InputEvent::MouseMoved { x: 0.0, y: 0.0 }, &mut vec![]);
+        }
+
         loop {
             if !self.pieces.is_animating() {
                 self.pieces.apply_manipulation(RotateClockwise(0), 1.0);
