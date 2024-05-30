@@ -9,7 +9,6 @@ pub use pieces::path::SubpathNoId;
 pub use pieces::piece::Piece;
 pub use pieces::position::PieceError;
 pub use pieces::position::Position;
-use pieces::position::Square;
 
 pub mod game;
 pub mod initialization;
@@ -35,7 +34,6 @@ pub enum ControlId {
 #[derive(Debug)]
 pub enum ControlEvent {
     Pressed(ControlId),
-    SquareStatusChanged(Square, bool),
 }
 
 pub trait Control {

@@ -1,6 +1,6 @@
 use macroquad::prelude::*;
 use miniquad::date::now;
-use rand::{rand, ChooseRandom};
+use rand::rand;
 
 use crate::{
     initialization::Assets, solved_marker::SolvedMarker, Button, Control, ControlEvent, ControlId,
@@ -37,11 +37,7 @@ fn broadcast_input_events(controls: &mut [Button], new_events: &mut Vec<ControlE
     }
 }
 
-fn handle_events(
-    new_events: &[ControlEvent],
-    pieces: &mut PieceCollection,
-    markers: &mut [SolvedMarker],
-) {
+fn handle_events(new_events: &[ControlEvent], pieces: &mut PieceCollection) {
     const ANIMATION_LENGTH: f64 = 0.35;
     for event in new_events.iter() {
         match event {
@@ -62,13 +58,6 @@ fn handle_events(
             }
             ControlEvent::Pressed(ControlId::RotateAnticlockwise(ring)) => pieces
                 .apply_manipulation(Manipulation::RotateAnticlockwise(*ring), ANIMATION_LENGTH),
-            ControlEvent::SquareStatusChanged(square, solved) => {
-                markers
-                    .iter_mut()
-                    .find(|marker| marker.square() == square)
-                    .unwrap()
-                    .set_visible(*solved);
-            }
         }
     }
 }
@@ -131,8 +120,7 @@ impl<'a> Game<'a> {
                 }
             }
 
-            let mut dummy = vec![];
-            self.pieces.update(&mut dummy);
+            self.pieces.update();
             self.draw_all();
             next_frame().await
         }
@@ -142,14 +130,14 @@ impl<'a> Game<'a> {
         loop {
             let mut new_events = vec![];
             broadcast_input_events(&mut self.buttons, &mut new_events);
-            self.pieces.update(&mut new_events);
+            self.pieces.update();
 
-            handle_events(&new_events, &mut self.pieces, &mut self.solved_markers);
+            handle_events(&new_events, &mut self.pieces);
 
             self.draw_all();
 
             if self.pieces.is_solved() && !self.pieces.is_animating() {
-                break
+                break;
             }
             next_frame().await
         }
@@ -164,8 +152,7 @@ impl<'a> Game<'a> {
                 self.pieces.apply_manipulation(RotateClockwise(2), 1.0);
             }
 
-            let mut dummy = vec![];
-            self.pieces.update(&mut dummy);
+            self.pieces.update();
             self.draw_all();
 
             // Additionally draw the victory marker
@@ -189,9 +176,13 @@ impl<'a> Game<'a> {
         draw_texture(&self.assets.img_board, 0., 0., WHITE);
 
         // Draw solved markers
-        for marker in &self.solved_markers {
-            marker.draw();
-        }
+        self.solved_markers
+            .iter()
+            .filter(|marker| self.pieces.is_square_solved(marker.square()))
+            .for_each(|marker| {
+                println!("{:?}", marker);
+                marker.draw();
+            });
 
         // Draw the rotational buttons
         let rotational_buttons = self.buttons.iter().filter(|button| {

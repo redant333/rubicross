@@ -503,10 +503,10 @@ pub fn initialize_pieces<'a>(assets: &'a Assets, paths: &'a PathMap) -> PieceCol
 pub fn initialize_solved_markers(assets: &Assets) -> Vec<SolvedMarker> {
     use position::Square::*;
     vec![
-        SolvedMarker::new(178.374, 42.660, North, false, &assets.img_square_solved),
-        SolvedMarker::new(178.374, 178.374, Center, false, &assets.img_square_solved),
-        SolvedMarker::new(178.374, 314.087, South, false, &assets.img_square_solved),
-        SolvedMarker::new(42.660, 178.374, West, false, &assets.img_square_solved),
-        SolvedMarker::new(314.087, 178.374, East, false, &assets.img_square_solved),
+        SolvedMarker::new(178.374, 42.660, North, &assets.img_square_solved),
+        SolvedMarker::new(178.374, 178.374, Center, &assets.img_square_solved),
+        SolvedMarker::new(178.374, 314.087, South, &assets.img_square_solved),
+        SolvedMarker::new(42.660, 178.374, West, &assets.img_square_solved),
+        SolvedMarker::new(314.087, 178.374, East, &assets.img_square_solved),
     ]
 }

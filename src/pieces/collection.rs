@@ -1,6 +1,6 @@
-use crate::{initialization::PathMap, Control, ControlEvent, Piece};
+use crate::{initialization::PathMap, Control, Piece};
 
-use super::position;
+use super::position::{self, Square};
 
 pub struct PieceCollection<'a> {
     pub path_map: &'a PathMap,
@@ -98,7 +98,7 @@ impl<'a> PieceCollection<'a> {
         }
     }
 
-    pub fn update(&mut self, generated_events: &mut Vec<ControlEvent>) {
+    pub fn update(&mut self) {
         // Update the pieces
         for piece in &mut self.pieces {
             piece.update();
@@ -122,7 +122,6 @@ impl<'a> PieceCollection<'a> {
             let square_solved = square_pieces.all(|piece| first_piece.has_same_color_as(piece));
 
             if square_solved != *store_var {
-                generated_events.push(ControlEvent::SquareStatusChanged(square, square_solved));
                 *store_var = square_solved;
             }
         }
@@ -138,6 +137,16 @@ impl<'a> PieceCollection<'a> {
             && self.north_solved
             && self.south_solved
             && self.center_solved
+    }
+
+    pub fn is_square_solved(&self, square: &Square) -> bool {
+        match square {
+            Square::North => self.north_solved,
+            Square::South => self.south_solved,
+            Square::Center => self.center_solved,
+            Square::West => self.west_solved,
+            Square::East => self.east_solved,
+        }
     }
 }
 
