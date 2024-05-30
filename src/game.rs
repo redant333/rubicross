@@ -185,10 +185,7 @@ impl<'a> Game<'a> {
         self.solved_markers
             .iter()
             .filter(|marker| self.pieces.is_square_solved(marker.square()))
-            .for_each(|marker| {
-                println!("{:?}", marker);
-                marker.draw();
-            });
+            .for_each(|marker| marker.draw());
 
         // Draw the rotational buttons
         let rotational_buttons = self.buttons.iter().filter(|button| {
