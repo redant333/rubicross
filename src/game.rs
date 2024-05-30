@@ -1,6 +1,6 @@
 use macroquad::prelude::*;
 use miniquad::date::now;
-use rand::ChooseRandom;
+use rand::{rand, ChooseRandom};
 
 use crate::{
     initialization::Assets, solved_marker::SolvedMarker, Button, Control, ControlEvent, ControlId,
@@ -76,31 +76,44 @@ fn handle_events(
 fn generate_shuffle_manipulations(count: usize) -> Vec<Manipulation> {
     use Manipulation::*;
 
-    let all_manipulations = vec![
+    let all_manipulations = [
         RotateClockwise(0),
-        RotateClockwise(1),
-        RotateClockwise(2),
         RotateAnticlockwise(0),
+        RotateClockwise(1),
         RotateAnticlockwise(1),
+        RotateClockwise(2),
         RotateAnticlockwise(2),
         SlideLeft(3),
-        SlideLeft(4),
-        SlideLeft(5),
         SlideRight(3),
+        SlideLeft(4),
         SlideRight(4),
+        SlideLeft(5),
         SlideRight(5),
         SlideUp(3),
-        SlideUp(4),
-        SlideUp(5),
         SlideDown(3),
+        SlideUp(4),
         SlideDown(4),
+        SlideUp(5),
         SlideDown(5),
     ];
 
-    (0..count)
-        .map(|_| all_manipulations.choose().unwrap())
-        .cloned()
-        .collect()
+    let mut manipulations = vec![];
+    let mut last_index = None;
+
+    for _ in 0..count {
+        let mut index = rand() as usize % all_manipulations.len();
+
+        // Do not allow the same manipulation to happen twice or the two opposite
+        // manipulations to happen in one after the other
+        while last_index.is_some() && index / 2 == last_index.unwrap() / 2 {
+            index = rand() as usize % all_manipulations.len();
+        }
+
+        manipulations.push(all_manipulations[index]);
+        last_index = Some(index);
+    }
+
+    manipulations
 }
 
 impl<'a> Game<'a> {
