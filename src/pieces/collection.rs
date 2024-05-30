@@ -131,6 +131,14 @@ impl<'a> PieceCollection<'a> {
     pub fn is_animating(&self) -> bool {
         self.pieces.iter().any(|piece| piece.is_animating())
     }
+
+    pub fn is_solved(&self) -> bool {
+        self.east_solved
+            && self.west_solved
+            && self.north_solved
+            && self.south_solved
+            && self.center_solved
+    }
 }
 
 impl<'a> Control for PieceCollection<'a> {

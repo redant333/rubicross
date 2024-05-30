@@ -29,6 +29,7 @@ async fn main() {
     rand::srand(macroquad::miniquad::date::now() as u64);
 
     game.wait(1.0).await;
-    game.perform_shuffle(20, 0.15).await;
+    game.perform_shuffle(1, 0.15).await;
     game.run_main_loop().await;
+    game.wait(1.0).await;
 }

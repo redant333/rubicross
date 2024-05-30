@@ -147,6 +147,10 @@ impl<'a> Game<'a> {
             handle_events(&new_events, &mut self.pieces, &mut self.solved_markers);
 
             self.draw_all();
+
+            if self.pieces.is_solved() && !self.pieces.is_animating() {
+                break
+            }
             next_frame().await
         }
     }
