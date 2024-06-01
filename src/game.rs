@@ -3,7 +3,7 @@ use miniquad::date::now;
 use rand::rand;
 
 use crate::{
-    button::{ButtonEvent, ButtonId, InputEvent},
+    button::{ButtonEvent, ButtonId, MouseEvent},
     initialization::Assets,
     solved_marker::SolvedMarker,
     Button, Manipulation, PieceCollection,
@@ -21,15 +21,15 @@ fn broadcast_input_events(buttons: &mut [Button], new_events: &mut Vec<ButtonEve
     let mut events = vec![];
 
     if mouse_delta_position() != Vec2::ZERO {
-        events.push(InputEvent::MouseMoved { x, y });
+        events.push(MouseEvent::Moved { x, y });
     }
 
     if is_mouse_button_pressed(MouseButton::Left) {
-        events.push(InputEvent::MousePressed { x, y });
+        events.push(MouseEvent::Pressed { x, y });
     }
 
     if is_mouse_button_released(MouseButton::Left) {
-        events.push(InputEvent::MouseReleased);
+        events.push(MouseEvent::Released);
     }
 
     for control in buttons.iter_mut() {
@@ -150,7 +150,7 @@ impl<'a> Game<'a> {
 
         // Make sure the buttons don't stay hovered
         for button in self.buttons.iter_mut() {
-            button.handle_event(&InputEvent::MouseMoved { x: 0.0, y: 0.0 }, &mut vec![]);
+            button.handle_event(&MouseEvent::Moved { x: 0.0, y: 0.0 }, &mut vec![]);
         }
 
         loop {

@@ -9,10 +9,10 @@ pub enum ButtonEvent {
 }
 
 #[non_exhaustive]
-pub enum InputEvent {
-    MouseMoved { x: f32, y: f32 },
-    MousePressed { x: f32, y: f32 },
-    MouseReleased,
+pub enum MouseEvent {
+    Moved { x: f32, y: f32 },
+    Pressed { x: f32, y: f32 },
+    Released,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -89,13 +89,13 @@ impl<'a> Button<'a> {
         );
     }
 
-    pub fn handle_event(&mut self, event: &InputEvent, new_events: &mut Vec<ButtonEvent>) {
-        use InputEvent::*;
+    pub fn handle_event(&mut self, event: &MouseEvent, new_events: &mut Vec<ButtonEvent>) {
+        use MouseEvent::*;
 
         let (width, height) = self.idle_texture.size().into();
 
         match *event {
-            MouseMoved { x, y } => {
+            Moved { x, y } => {
                 let x_inside = self.x <= x && x <= self.x + width;
                 let y_inside = self.y <= y && y <= self.y + height;
 
@@ -105,13 +105,13 @@ impl<'a> Button<'a> {
                     self.pressed = false;
                 }
             }
-            MousePressed { .. } if self.hovered => {
+            Pressed { .. } if self.hovered => {
                 if !self.pressed {
                     new_events.push(ButtonEvent::Pressed(self.id));
                 }
                 self.pressed = true;
             }
-            MouseReleased => self.pressed = false,
+            Released => self.pressed = false,
             _ => (),
         }
     }
