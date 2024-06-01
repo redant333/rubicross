@@ -8,4 +8,10 @@ edition = "2021"
 [dependencies]
 bezier-rs = "0.4.0"
 macroquad = "0.4"
+
+[dev-dependencies]
 test-case = "3.3.1"
+
+[profile.release]
+opt-level = "s"
+strip = true
