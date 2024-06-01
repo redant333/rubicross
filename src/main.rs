@@ -14,11 +14,11 @@ pub mod game;
 pub mod initialization;
 pub mod solved_marker;
 
-use macroquad::prelude::*;
 use game::Game;
 use initialization::{
     initialize_buttons, initialize_paths, initialize_pieces, initialize_solved_markers, load_assets,
 };
+use macroquad::prelude::*;
 
 fn window_conf() -> Conf {
     Conf {
@@ -45,7 +45,10 @@ async fn main() {
     rand::srand(macroquad::miniquad::date::now() as u64);
 
     game.wait(1.0).await;
-    game.run_shuffle(1, 0.15).await;
+    game.run_shuffle(20, 0.15).await;
+    game.wait(0.5).await;
+    game.run_blink_loop(0.3).await;
+    game.wait(0.5).await;
     game.run_main_loop().await;
     game.wait(1.0).await;
     game.run_victory_loop().await;

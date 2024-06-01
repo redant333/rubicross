@@ -123,7 +123,7 @@ impl<'a> Game<'a> {
             }
 
             self.pieces.update();
-            self.draw_all();
+            self.draw_all(false);
             next_frame().await
         }
     }
@@ -136,7 +136,7 @@ impl<'a> Game<'a> {
 
             handle_events(&new_events, &mut self.pieces);
 
-            self.draw_all();
+            self.draw_all(false);
 
             if self.pieces.is_solved() && !self.pieces.is_animating() {
                 break;
@@ -161,7 +161,7 @@ impl<'a> Game<'a> {
             }
 
             self.pieces.update();
-            self.draw_all();
+            self.draw_all(false);
 
             // Additionally draw the victory marker
             draw_texture(&self.assets.img_victory_marker, 0., 0., WHITE);
@@ -170,16 +170,25 @@ impl<'a> Game<'a> {
         }
     }
 
-    pub async fn wait(&self, time_sec: f64) {
+    pub async fn run_blink_loop(&mut self, blink_time_sec: f64) {
         let start = now();
 
-        while now() - start < time_sec {
-            self.draw_all();
+        while now() - start < blink_time_sec {
+            self.draw_all(true);
             next_frame().await;
         }
     }
 
-    fn draw_all(&self) {
+    pub async fn wait(&self, time_sec: f64) {
+        let start = now();
+
+        while now() - start < time_sec {
+            self.draw_all(false);
+            next_frame().await;
+        }
+    }
+
+    fn draw_all(&self, draw_buttons_as_hovered: bool) {
         // Draw the background
         draw_texture(&self.assets.img_board, 0., 0., WHITE);
 
@@ -197,8 +206,8 @@ impl<'a> Game<'a> {
             )
         });
 
-        for drawable in rotational_buttons {
-            drawable.draw();
+        for button in rotational_buttons {
+            button.draw(draw_buttons_as_hovered);
         }
 
         // Draw the pieces
@@ -216,7 +225,7 @@ impl<'a> Game<'a> {
         });
 
         for drawable in linear_buttons {
-            drawable.draw();
+            drawable.draw(draw_buttons_as_hovered);
         }
     }
 }

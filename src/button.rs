@@ -67,11 +67,11 @@ impl<'a> Button<'a> {
         self.id
     }
 
-    pub fn draw(&self) {
-        let texture = if self.pressed {
-            self.pressed_texture
-        } else if self.hovered {
+    pub fn draw(&self, render_hovered: bool) {
+        let texture = if self.hovered || render_hovered {
             self.hover_texture
+        } else if self.pressed {
+            self.pressed_texture
         } else {
             self.idle_texture
         };
