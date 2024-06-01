@@ -4,7 +4,8 @@ use std::{
 };
 
 use bezier_rs::Bezier;
-use macroquad::texture::{load_texture, Texture2D};
+use macroquad::texture::Texture2D;
+use macroquad::prelude::ImageFormat;
 
 use crate::{
     button::ButtonId, pieces::position, solved_marker::SolvedMarker, Button, Path, Piece,
@@ -31,25 +32,34 @@ pub struct Assets {
     pub img_victory_marker: Texture2D,
 }
 
+macro_rules! load_texture {
+    ($file_name:expr) => {
+        Texture2D::from_file_with_format(
+            include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/assets/", $file_name,)),
+            Some(ImageFormat::Png),
+        )
+    };
+}
+
 #[rustfmt::skip]
 pub async fn load_assets() -> Assets {
     Assets {
-        img_board: load_texture("assets/board.png").await.unwrap(),
-        img_surroundings: load_texture("assets/surroundings.png").await.unwrap(),
-        img_arrow_linear: load_texture("assets/arrow_linear.png").await.unwrap(),
-        img_arrow_linear_hover: load_texture("assets/arrow_linear_hover.png").await.unwrap(),
-        img_arrow_linear_pressed: load_texture("assets/arrow_linear_pressed.png").await.unwrap(),
-        img_arrow_rotational: load_texture("assets/arrow_rotational.png").await.unwrap(),
-        img_arrow_rotational_hover: load_texture("assets/arrow_rotational_hover.png").await.unwrap(),
-        img_arrow_rotational_pressed: load_texture("assets/arrow_rotational_pressed.png").await.unwrap(),
-        img_piece_yellow: load_texture("assets/piece_yellow.png").await.unwrap(),
-        img_piece_blue: load_texture("assets/piece_blue.png").await.unwrap(),
-        img_piece_red: load_texture("assets/piece_red.png").await.unwrap(),
-        img_piece_purple: load_texture("assets/piece_purple.png").await.unwrap(),
-        img_piece_green: load_texture("assets/piece_green.png").await.unwrap(),
-        img_square_solved_center: load_texture("assets/square_correct_center.png").await.unwrap(),
-        img_square_solved_edges: load_texture("assets/square_correct_edges.png").await.unwrap(),
-        img_victory_marker: load_texture("assets/victory_marker.png").await.unwrap(),
+        img_board: load_texture!("board.png"),
+        img_surroundings: load_texture!("surroundings.png"),
+        img_arrow_linear: load_texture!("arrow_linear.png"),
+        img_arrow_linear_hover: load_texture!("arrow_linear_hover.png"),
+        img_arrow_linear_pressed: load_texture!("arrow_linear_pressed.png"),
+        img_arrow_rotational: load_texture!("arrow_rotational.png"),
+        img_arrow_rotational_hover: load_texture!("arrow_rotational_hover.png"),
+        img_arrow_rotational_pressed: load_texture!("arrow_rotational_pressed.png"),
+        img_piece_yellow: load_texture!("piece_yellow.png"),
+        img_piece_blue: load_texture!("piece_blue.png"),
+        img_piece_red: load_texture!("piece_red.png"),
+        img_piece_purple: load_texture!("piece_purple.png"),
+        img_piece_green: load_texture!("piece_green.png"),
+        img_square_solved_center: load_texture!("square_correct_center.png"),
+        img_square_solved_edges: load_texture!("square_correct_edges.png"),
+        img_victory_marker: load_texture!("victory_marker.png"),
     }
 }
 
