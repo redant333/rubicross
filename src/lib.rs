@@ -13,25 +13,3 @@ pub use pieces::position::Position;
 pub mod game;
 pub mod initialization;
 pub mod solved_marker;
-
-#[non_exhaustive]
-pub enum InputEvent {
-    MouseMoved { x: f32, y: f32 },
-    MousePressed { x: f32, y: f32 },
-    MouseReleased,
-}
-
-#[derive(Debug, Clone, Copy)]
-pub enum ControlId {
-    HorizontalLeft(u8),
-    HorizontalRight(u8),
-    VerticalUp(u8),
-    VerticalDown(u8),
-    RotateClockwise(u8),
-    RotateAnticlockwise(u8),
-}
-
-#[derive(Debug)]
-pub enum ControlEvent {
-    Pressed(ControlId),
-}

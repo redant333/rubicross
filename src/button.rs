@@ -3,7 +3,27 @@ use macroquad::{
     texture::{draw_texture_ex, DrawTextureParams, Texture2D},
 };
 
-use crate::{ControlEvent, ControlId, InputEvent};
+#[derive(Debug)]
+pub enum ButtonEvent {
+    Pressed(ButtonId),
+}
+
+#[non_exhaustive]
+pub enum InputEvent {
+    MouseMoved { x: f32, y: f32 },
+    MousePressed { x: f32, y: f32 },
+    MouseReleased,
+}
+
+#[derive(Debug, Clone, Copy)]
+pub enum ButtonId {
+    HorizontalLeft(u8),
+    HorizontalRight(u8),
+    VerticalUp(u8),
+    VerticalDown(u8),
+    RotateClockwise(u8),
+    RotateAnticlockwise(u8),
+}
 
 pub struct Button<'a> {
     pub x: f32,
@@ -14,7 +34,7 @@ pub struct Button<'a> {
     hover_texture: &'a Texture2D,
     pressed_texture: &'a Texture2D,
 
-    id: ControlId,
+    id: ButtonId,
 
     hovered: bool,
     pressed: bool,
@@ -22,7 +42,7 @@ pub struct Button<'a> {
 
 impl<'a> Button<'a> {
     pub fn new(
-        id: ControlId,
+        id: ButtonId,
         idle_texture: &'a Texture2D,
         hover_texture: &'a Texture2D,
         pressed_texture: &'a Texture2D,
@@ -43,7 +63,7 @@ impl<'a> Button<'a> {
         }
     }
 
-    pub fn id(&self) -> ControlId {
+    pub fn id(&self) -> ButtonId {
         self.id
     }
 
@@ -69,8 +89,8 @@ impl<'a> Button<'a> {
         );
     }
 
-    pub fn handle_event(&mut self, event: &InputEvent, new_events: &mut Vec<ControlEvent>) {
-        use crate::InputEvent::*;
+    pub fn handle_event(&mut self, event: &InputEvent, new_events: &mut Vec<ButtonEvent>) {
+        use InputEvent::*;
 
         let (width, height) = self.idle_texture.size().into();
 
@@ -87,7 +107,7 @@ impl<'a> Button<'a> {
             }
             MousePressed { .. } if self.hovered => {
                 if !self.pressed {
-                    new_events.push(ControlEvent::Pressed(self.id));
+                    new_events.push(ButtonEvent::Pressed(self.id));
                 }
                 self.pressed = true;
             }

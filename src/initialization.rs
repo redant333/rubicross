@@ -7,8 +7,8 @@ use bezier_rs::Bezier;
 use macroquad::texture::{load_texture, Texture2D};
 
 use crate::{
-    pieces::position, solved_marker::SolvedMarker, Button, ControlId, Path, Piece, PieceCollection,
-    Position, SubpathNoId,
+    button::ButtonId, pieces::position, solved_marker::SolvedMarker, Button, Path, Piece,
+    PieceCollection, Position, SubpathNoId,
 };
 
 #[non_exhaustive]
@@ -92,31 +92,31 @@ pub fn initialize_buttons(assets: &Assets) -> Vec<Button> {
 
     vec![
         // Linear buttons
-        new_linear_button(186.646, 4.920, 0., ControlId::VerticalUp(3)),
-        new_linear_button(231.884, 4.920, 0., ControlId::VerticalUp(4)),
-        new_linear_button(277.122, 4.920, 0., ControlId::VerticalUp(5)),
-        new_linear_button(186.646, 457.298, PI, ControlId::VerticalDown(3)),
-        new_linear_button(231.884, 457.298, PI, ControlId::VerticalDown(4)),
-        new_linear_button(277.122, 457.298, PI, ControlId::VerticalDown(5)),
-        new_linear_button(4.920, 186.646, -FRAC_PI_2, ControlId::HorizontalLeft(3)),
-        new_linear_button(4.920, 231.884, -FRAC_PI_2, ControlId::HorizontalLeft(4)),
-        new_linear_button(4.920, 277.122, -FRAC_PI_2, ControlId::HorizontalLeft(5)),
-        new_linear_button(457.298, 186.646, FRAC_PI_2, ControlId::HorizontalRight(3)),
-        new_linear_button(457.298, 231.884, FRAC_PI_2, ControlId::HorizontalRight(4)),
-        new_linear_button(457.298, 277.122, FRAC_PI_2, ControlId::HorizontalRight(5)),
+        new_linear_button(186.646, 4.920, 0., ButtonId::VerticalUp(3)),
+        new_linear_button(231.884, 4.920, 0., ButtonId::VerticalUp(4)),
+        new_linear_button(277.122, 4.920, 0., ButtonId::VerticalUp(5)),
+        new_linear_button(186.646, 457.298, PI, ButtonId::VerticalDown(3)),
+        new_linear_button(231.884, 457.298, PI, ButtonId::VerticalDown(4)),
+        new_linear_button(277.122, 457.298, PI, ButtonId::VerticalDown(5)),
+        new_linear_button(4.920, 186.646, -FRAC_PI_2, ButtonId::HorizontalLeft(3)),
+        new_linear_button(4.920, 231.884, -FRAC_PI_2, ButtonId::HorizontalLeft(4)),
+        new_linear_button(4.920, 277.122, -FRAC_PI_2, ButtonId::HorizontalLeft(5)),
+        new_linear_button(457.298, 186.646, FRAC_PI_2, ButtonId::HorizontalRight(3)),
+        new_linear_button(457.298, 231.884, FRAC_PI_2, ButtonId::HorizontalRight(4)),
+        new_linear_button(457.298, 277.122, FRAC_PI_2, ButtonId::HorizontalRight(5)),
         // Rotational buttons
-        new_rotational_button(85.462, 85.462, 0., ControlId::RotateClockwise(2)),
-        new_rotational_button(117.330, 117.330, 0.,ControlId::RotateClockwise(1)),
-        new_rotational_button(146.381, 146.381, 0., ControlId::RotateClockwise(0)),
-        new_rotational_button(320.000, 320.000, PI, ControlId::RotateClockwise(0)),
-        new_rotational_button(349.052, 349.052, PI, ControlId::RotateClockwise(1)),
-        new_rotational_button(380.919, 380.919, PI, ControlId::RotateClockwise(2)),
-        new_rotational_button(320.000, 146.381, -FRAC_PI_2, ControlId::RotateAnticlockwise(0)),
-        new_rotational_button(349.052, 117.330, -FRAC_PI_2, ControlId::RotateAnticlockwise(1)),
-        new_rotational_button(380.919, 85.462, -FRAC_PI_2, ControlId::RotateAnticlockwise(2)),
-        new_rotational_button(146.381, 320.000, FRAC_PI_2, ControlId::RotateAnticlockwise(0)),
-        new_rotational_button(117.330, 349.052, FRAC_PI_2, ControlId::RotateAnticlockwise(1)),
-        new_rotational_button(85.462, 380.919, FRAC_PI_2, ControlId::RotateAnticlockwise(2)),
+        new_rotational_button(85.462, 85.462, 0., ButtonId::RotateClockwise(2)),
+        new_rotational_button(117.330, 117.330, 0.,ButtonId::RotateClockwise(1)),
+        new_rotational_button(146.381, 146.381, 0., ButtonId::RotateClockwise(0)),
+        new_rotational_button(320.000, 320.000, PI, ButtonId::RotateClockwise(0)),
+        new_rotational_button(349.052, 349.052, PI, ButtonId::RotateClockwise(1)),
+        new_rotational_button(380.919, 380.919, PI, ButtonId::RotateClockwise(2)),
+        new_rotational_button(320.000, 146.381, -FRAC_PI_2, ButtonId::RotateAnticlockwise(0)),
+        new_rotational_button(349.052, 117.330, -FRAC_PI_2, ButtonId::RotateAnticlockwise(1)),
+        new_rotational_button(380.919, 85.462, -FRAC_PI_2, ButtonId::RotateAnticlockwise(2)),
+        new_rotational_button(146.381, 320.000, FRAC_PI_2, ButtonId::RotateAnticlockwise(0)),
+        new_rotational_button(117.330, 349.052, FRAC_PI_2, ButtonId::RotateAnticlockwise(1)),
+        new_rotational_button(85.462, 380.919, FRAC_PI_2, ButtonId::RotateAnticlockwise(2)),
     ]
 }
 

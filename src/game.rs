@@ -3,8 +3,10 @@ use miniquad::date::now;
 use rand::rand;
 
 use crate::{
-    initialization::Assets, solved_marker::SolvedMarker, Button, ControlEvent, ControlId,
-    InputEvent, Manipulation, PieceCollection,
+    button::{ButtonEvent, ButtonId, InputEvent},
+    initialization::Assets,
+    solved_marker::SolvedMarker,
+    Button, Manipulation, PieceCollection,
 };
 
 pub struct Game<'a> {
@@ -14,7 +16,7 @@ pub struct Game<'a> {
     pub pieces: PieceCollection<'a>,
 }
 
-fn broadcast_input_events(buttons: &mut [Button], new_events: &mut Vec<ControlEvent>) {
+fn broadcast_input_events(buttons: &mut [Button], new_events: &mut Vec<ButtonEvent>) {
     let (x, y) = mouse_position();
     let mut events = vec![];
 
@@ -37,26 +39,26 @@ fn broadcast_input_events(buttons: &mut [Button], new_events: &mut Vec<ControlEv
     }
 }
 
-fn handle_events(new_events: &[ControlEvent], pieces: &mut PieceCollection) {
+fn handle_events(new_events: &[ButtonEvent], pieces: &mut PieceCollection) {
     const ANIMATION_LENGTH: f64 = 0.35;
     for event in new_events.iter() {
         match event {
-            ControlEvent::Pressed(ControlId::HorizontalRight(row)) => {
+            ButtonEvent::Pressed(ButtonId::HorizontalRight(row)) => {
                 pieces.apply_manipulation(Manipulation::SlideRight(*row), ANIMATION_LENGTH)
             }
-            ControlEvent::Pressed(ControlId::HorizontalLeft(row)) => {
+            ButtonEvent::Pressed(ButtonId::HorizontalLeft(row)) => {
                 pieces.apply_manipulation(Manipulation::SlideLeft(*row), ANIMATION_LENGTH)
             }
-            ControlEvent::Pressed(ControlId::VerticalUp(col)) => {
+            ButtonEvent::Pressed(ButtonId::VerticalUp(col)) => {
                 pieces.apply_manipulation(Manipulation::SlideUp(*col), ANIMATION_LENGTH)
             }
-            ControlEvent::Pressed(ControlId::VerticalDown(col)) => {
+            ButtonEvent::Pressed(ButtonId::VerticalDown(col)) => {
                 pieces.apply_manipulation(Manipulation::SlideDown(*col), ANIMATION_LENGTH)
             }
-            ControlEvent::Pressed(ControlId::RotateClockwise(ring)) => {
+            ButtonEvent::Pressed(ButtonId::RotateClockwise(ring)) => {
                 pieces.apply_manipulation(Manipulation::RotateClockwise(*ring), ANIMATION_LENGTH)
             }
-            ControlEvent::Pressed(ControlId::RotateAnticlockwise(ring)) => pieces
+            ButtonEvent::Pressed(ButtonId::RotateAnticlockwise(ring)) => pieces
                 .apply_manipulation(Manipulation::RotateAnticlockwise(*ring), ANIMATION_LENGTH),
         }
     }
@@ -191,7 +193,7 @@ impl<'a> Game<'a> {
         let rotational_buttons = self.buttons.iter().filter(|button| {
             matches!(
                 button.id(),
-                ControlId::RotateClockwise(_) | ControlId::RotateAnticlockwise(_)
+                ButtonId::RotateClockwise(_) | ButtonId::RotateAnticlockwise(_)
             )
         });
 
@@ -209,7 +211,7 @@ impl<'a> Game<'a> {
         let linear_buttons = self.buttons.iter().filter(|button| {
             !matches!(
                 button.id(),
-                ControlId::RotateClockwise(_) | ControlId::RotateAnticlockwise(_)
+                ButtonId::RotateClockwise(_) | ButtonId::RotateAnticlockwise(_)
             )
         });
 
