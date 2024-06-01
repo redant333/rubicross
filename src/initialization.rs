@@ -26,7 +26,8 @@ pub struct Assets {
     pub img_piece_red: Texture2D,
     pub img_piece_purple: Texture2D,
     pub img_piece_green: Texture2D,
-    pub img_square_solved: Texture2D,
+    pub img_square_solved_center: Texture2D,
+    pub img_square_solved_edges: Texture2D,
     pub img_victory_marker: Texture2D,
 }
 
@@ -46,7 +47,8 @@ pub async fn load_assets() -> Assets {
         img_piece_red: load_texture("assets/piece_red.png").await.unwrap(),
         img_piece_purple: load_texture("assets/piece_purple.png").await.unwrap(),
         img_piece_green: load_texture("assets/piece_green.png").await.unwrap(),
-        img_square_solved: load_texture("assets/square_correct.png").await.unwrap(),
+        img_square_solved_center: load_texture("assets/square_correct_center.png").await.unwrap(),
+        img_square_solved_edges: load_texture("assets/square_correct_edges.png").await.unwrap(),
         img_victory_marker: load_texture("assets/victory_marker.png").await.unwrap(),
     }
 }
@@ -502,11 +504,15 @@ pub fn initialize_pieces<'a>(assets: &'a Assets, paths: &'a PathMap) -> PieceCol
 
 pub fn initialize_solved_markers(assets: &Assets) -> Vec<SolvedMarker> {
     use position::Square::*;
-    vec![
-        SolvedMarker::new(178.374, 42.660, North, &assets.img_square_solved),
-        SolvedMarker::new(178.374, 178.374, Center, &assets.img_square_solved),
-        SolvedMarker::new(178.374, 314.087, South, &assets.img_square_solved),
-        SolvedMarker::new(42.660, 178.374, West, &assets.img_square_solved),
-        SolvedMarker::new(314.087, 178.374, East, &assets.img_square_solved),
-    ]
+
+    #[rustfmt::skip]
+    let markers = vec![
+        SolvedMarker::new(178.374, 178.374, Center, &assets.img_square_solved_center, 0.0),
+        SolvedMarker::new(178.374, 42.660, North, &assets.img_square_solved_edges, 0.0),
+        SolvedMarker::new(178.374, 314.087, South, &assets.img_square_solved_edges, PI),
+        SolvedMarker::new(42.660, 178.374, West, &assets.img_square_solved_edges, -FRAC_PI_2),
+        SolvedMarker::new(314.087, 178.374, East, &assets.img_square_solved_edges, FRAC_PI_2),
+    ];
+
+    markers
 }
