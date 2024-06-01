@@ -5,7 +5,7 @@ use macroquad::{
     time::get_time,
 };
 
-use crate::{Control, Path, Position};
+use crate::{Path, Position};
 
 struct AnimationParams<'a> {
     path: &'a Path,
@@ -101,10 +101,8 @@ impl<'a> Piece<'a> {
     pub fn is_animating(&self) -> bool {
         self.animation.is_some()
     }
-}
 
-impl<'a> Control for Piece<'a> {
-    fn draw(&self) {
+    pub fn draw(&self) {
         draw_texture(self.texture, self.x, self.y, WHITE);
 
         let Some(animation) = self.animation.as_ref() else {

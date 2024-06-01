@@ -1,4 +1,4 @@
-use crate::{initialization::PathMap, Control, Piece};
+use crate::{initialization::PathMap, Piece};
 
 use super::position::{self, Square};
 
@@ -148,10 +148,8 @@ impl<'a> PieceCollection<'a> {
             Square::East => self.east_solved,
         }
     }
-}
 
-impl<'a> Control for PieceCollection<'a> {
-    fn draw(&self) {
+    pub fn draw(&self) {
         for piece in &self.pieces {
             piece.draw();
         }

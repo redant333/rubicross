@@ -3,7 +3,7 @@ use macroquad::{
     texture::{draw_texture_ex, DrawTextureParams, Texture2D},
 };
 
-use crate::{Control, ControlEvent, ControlId, InputEvent};
+use crate::{ControlEvent, ControlId, InputEvent};
 
 pub struct Button<'a> {
     pub x: f32,
@@ -46,10 +46,8 @@ impl<'a> Button<'a> {
     pub fn id(&self) -> ControlId {
         self.id
     }
-}
 
-impl<'a> Control for Button<'a> {
-    fn draw(&self) {
+    pub fn draw(&self) {
         let texture = if self.pressed {
             self.pressed_texture
         } else if self.hovered {
@@ -71,7 +69,7 @@ impl<'a> Control for Button<'a> {
         );
     }
 
-    fn handle_event(&mut self, event: &InputEvent, new_events: &mut Vec<ControlEvent>) {
+    pub fn handle_event(&mut self, event: &InputEvent, new_events: &mut Vec<ControlEvent>) {
         use crate::InputEvent::*;
 
         let (width, height) = self.idle_texture.size().into();

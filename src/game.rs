@@ -3,7 +3,7 @@ use miniquad::date::now;
 use rand::rand;
 
 use crate::{
-    initialization::Assets, solved_marker::SolvedMarker, Button, Control, ControlEvent, ControlId,
+    initialization::Assets, solved_marker::SolvedMarker, Button, ControlEvent, ControlId,
     InputEvent, Manipulation, PieceCollection,
 };
 
@@ -14,7 +14,7 @@ pub struct Game<'a> {
     pub pieces: PieceCollection<'a>,
 }
 
-fn broadcast_input_events(controls: &mut [Button], new_events: &mut Vec<ControlEvent>) {
+fn broadcast_input_events(buttons: &mut [Button], new_events: &mut Vec<ControlEvent>) {
     let (x, y) = mouse_position();
     let mut events = vec![];
 
@@ -30,7 +30,7 @@ fn broadcast_input_events(controls: &mut [Button], new_events: &mut Vec<ControlE
         events.push(InputEvent::MouseReleased);
     }
 
-    for control in controls.iter_mut() {
+    for control in buttons.iter_mut() {
         for event in &events {
             control.handle_event(event, new_events);
         }

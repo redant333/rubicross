@@ -1,4 +1,4 @@
-use crate::{pieces::position, Control};
+use crate::pieces::position;
 use macroquad::{
     color::WHITE,
     texture::{draw_texture_ex, DrawTextureParams, Texture2D},
@@ -11,22 +11,6 @@ pub struct SolvedMarker<'a> {
     idle_texture: &'a Texture2D,
     square: position::Square,
     rotation: f32,
-}
-
-impl<'a> Control for SolvedMarker<'a> {
-    fn draw(&self) {
-        draw_texture_ex(
-            self.idle_texture,
-            self.x,
-            self.y,
-            WHITE,
-            DrawTextureParams {
-                rotation: self.rotation,
-                pivot: None,
-                ..Default::default()
-            },
-        )
-    }
 }
 
 impl<'a> SolvedMarker<'a> {
@@ -48,5 +32,19 @@ impl<'a> SolvedMarker<'a> {
 
     pub fn square(&self) -> &position::Square {
         &self.square
+    }
+
+    pub fn draw(&self) {
+        draw_texture_ex(
+            self.idle_texture,
+            self.x,
+            self.y,
+            WHITE,
+            DrawTextureParams {
+                rotation: self.rotation,
+                pivot: None,
+                ..Default::default()
+            },
+        )
     }
 }

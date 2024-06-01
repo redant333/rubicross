@@ -35,8 +35,3 @@ pub enum ControlId {
 pub enum ControlEvent {
     Pressed(ControlId),
 }
-
-pub trait Control {
-    fn draw(&self);
-    fn handle_event(&mut self, _event: &InputEvent, _generated_events: &mut Vec<ControlEvent>) {}
-}
