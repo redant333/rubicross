@@ -123,7 +123,7 @@ impl<'a> Game<'a> {
             }
 
             self.pieces.update();
-            self.draw_all(false);
+            self.draw_all(false, false);
             next_frame().await
         }
     }
@@ -136,7 +136,7 @@ impl<'a> Game<'a> {
 
             handle_events(&new_events, &mut self.pieces);
 
-            self.draw_all(false);
+            self.draw_all(false, true);
 
             if self.pieces.is_solved() && !self.pieces.is_animating() {
                 break;
@@ -161,7 +161,7 @@ impl<'a> Game<'a> {
             }
 
             self.pieces.update();
-            self.draw_all(false);
+            self.draw_all(false, true);
 
             // Additionally draw the victory marker
             draw_texture(&self.assets.img_victory_marker, 0., 0., WHITE);
@@ -174,7 +174,7 @@ impl<'a> Game<'a> {
         let start = now();
 
         while now() - start < blink_time_sec {
-            self.draw_all(true);
+            self.draw_all(true, true);
             next_frame().await;
         }
     }
@@ -183,20 +183,22 @@ impl<'a> Game<'a> {
         let start = now();
 
         while now() - start < time_sec {
-            self.draw_all(false);
+            self.draw_all(false, true);
             next_frame().await;
         }
     }
 
-    fn draw_all(&self, draw_buttons_as_hovered: bool) {
+    fn draw_all(&self, draw_buttons_as_hovered: bool, draw_solved_markers: bool) {
         // Draw the background
         draw_texture(&self.assets.img_board, 0., 0., WHITE);
 
         // Draw solved markers
-        self.solved_markers
-            .iter()
-            .filter(|marker| self.pieces.is_square_solved(marker.square()))
-            .for_each(|marker| marker.draw());
+        if draw_solved_markers {
+            self.solved_markers
+                .iter()
+                .filter(|marker| self.pieces.is_square_solved(marker.square()))
+                .for_each(|marker| marker.draw());
+        }
 
         // Draw the rotational buttons
         let rotational_buttons = self.buttons.iter().filter(|button| {
