@@ -8,8 +8,18 @@
 
 #main-container {
     width: 100%;
-    margin-top: 50px;
-    text-align: center;
+    text-align: center; }
+
+#id-title {
+    width: 350px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.not-selectable {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 body {
