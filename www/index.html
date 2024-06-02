@@ -14,6 +14,16 @@
     <h1>Rubicross</h1>
     <canvas id="glcanvas"></canvas>
     </div>
+    <script>
+    {
+        let canvas = document.getElementById("glcanvas");
+        let gl = canvas.getContext("webgl");
+
+        // Set the canvas color to web page background so that there is no blink during loading
+        gl.clearColor(0.77254901960784317, 0.72941176470588232, 0.68627450980392157, 1.0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+    }
+    </script>
     <script src="js/mq_js_bundle.js"></script>
     <!-- TODO This needs to be replaces with the path to the release wasm -->
     <script>load("rubicross.wasm");</script>
