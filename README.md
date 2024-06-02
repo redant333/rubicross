@@ -1,2 +1,4 @@
-Simple, Rubik's cube inspired game.
-Play it [here](https://redant333.github.io/rubicross/).
+# Rubicross
+This branch contains the old implementation in Tululoo Game Maker.
+
+See `main-macroquad` branch for the latest code.
